@@ -1,7 +1,12 @@
+import { IonContent, IonPage } from '@ionic/react';
 import React from 'react';
 
 export default function SettingsPage() {
     return(
-        <div>SETTINGS</div>
+        <IonPage>
+            <IonContent>
+                <div>SETTINGS</div>
+            </IonContent>
+        </IonPage>
     )
 }

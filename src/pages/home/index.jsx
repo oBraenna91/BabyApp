@@ -1,7 +1,12 @@
+import { IonContent, IonPage } from '@ionic/react';
 import React from 'react';
 
 export default function HomePage() {
     return(
-        <div>HOME PAGE</div>
+        <IonPage>
+            <IonContent>
+                <div>HOME PAGE</div>
+            </IonContent>
+        </IonPage>
     )
 }
