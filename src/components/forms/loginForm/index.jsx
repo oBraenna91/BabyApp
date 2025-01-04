@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { supabase } from '../../../supabaseClient';
-import { useNavigate } from 'react-router-dom';
+import { supabase } from '../../../supabaseClient.js';
+import { useIonRouter } from '@ionic/react';
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -8,7 +8,7 @@ export default function LoginForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate();
+  const router = useIonRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ export default function LoginForm() {
       setError(error.message);
     } else {
         alert('You are now logged in!')
-      navigate('/');
+      router.push('/home', 'forward');
     }
 
     setLoading(false);

@@ -8,6 +8,7 @@ import MessagesPage from './pages/messages';
 import DiscoverPage from './pages/discover';
 import SettingsPage from './pages/settings';
 import Layout from './layout';
+import LoginPage from './pages/login';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/messages" component={MessagesPage} />
             <Route path="/discover" component={DiscoverPage} />
             <Route path="/settings" component={SettingsPage} />
+            <Route path="/login" component={LoginPage}/>
           </IonRouterOutlet>
         </Layout>
       </IonReactRouter>

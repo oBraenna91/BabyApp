@@ -6,3 +6,14 @@
     padding-top: 2vh;
     background-color: transparent;
 }
+
+.iconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    width: 100%;
+    font-size: 1.5em;
+}

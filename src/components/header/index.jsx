@@ -26,19 +26,19 @@ export default function Header() {
   return (
     <div className={`${styles.navbar} col-12 d-flex align-items-center justify-content-center px-3`}>
       <div className={`${styles.innerBar} d-flex align-items-center justify-content-between rounded-4 px-4 py-3 col-12 bg-primary`}>
-        <div onClick={() => navigate('/home')}>
+        <div className={styles.iconContainer} onClick={() => navigate('/home')}>
           <FaHome className={`${styles.icon}`} />
         </div>
-        <div onClick={() => navigate('/profile')}>
+        <div className={styles.iconContainer} onClick={() => navigate('/profile')}>
           <FaUser className={`${styles.icon}`} />
         </div>
-        <div onClick={() => navigate('/messages')}>
+        <div className={styles.iconContainer} onClick={() => navigate('/messages')}>
           <FaEnvelope className={`${styles.icon}`} />
         </div>
-        <div onClick={() => navigate('/discover')}>
+        <div className={styles.iconContainer} onClick={() => navigate('/discover')}>
           <FaSearch className={`${styles.icon}`} />
         </div>
-        <div onClick={() => navigate('/settings')}>
+        <div className={styles.iconContainer} onClick={() => navigate('/settings')}>
           <FaCog className={`${styles.icon}`} />
         </div>
       </div>
