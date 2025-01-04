@@ -42,6 +42,7 @@ export default function LoginForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
             className="form-input"
+            placeholder="Email"
           />
         </div>
         <div className="label-input-container">
@@ -52,6 +53,7 @@ export default function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
             className="form-input"
+            placeholder='Password'
           />
         </div>
         {error && <p className="error-message">{error}</p>}

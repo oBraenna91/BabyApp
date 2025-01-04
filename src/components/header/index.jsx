@@ -25,7 +25,7 @@ export default function Header() {
 
   return (
     <div className={`${styles.navbar} col-12 d-flex align-items-center justify-content-center px-3`}>
-      <div className={`${styles.innerBar} d-flex align-items-center justify-content-between rounded-4 px-4 py-2 col-12 bg-primary`}>
+      <div className={`${styles.innerBar} d-flex align-items-center justify-content-between rounded-4 px-4 py-3 col-12 bg-primary`}>
         <div className={styles.iconContainer} onClick={() => navigate('/home')}>
           <FaHome className={`${styles.icon}`} />
         </div>
