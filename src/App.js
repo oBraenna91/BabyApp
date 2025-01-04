@@ -9,6 +9,9 @@ import DiscoverPage from './pages/discover';
 import SettingsPage from './pages/settings';
 import Layout from './layout';
 import LoginPage from './pages/login';
+import UpdatePasswordPage from './pages/updatePassword';
+import ResetPasswordPage from './pages/resetPassword';
+import SignUpPage from './pages/signUp';
 
 function App() {
   return (
@@ -22,6 +25,9 @@ function App() {
             <Route path="/discover" component={DiscoverPage} />
             <Route path="/settings" component={SettingsPage} />
             <Route path="/login" component={LoginPage}/>
+            <Route path="/update-password" component={UpdatePasswordPage}/>
+            <Route path="/reset-password" component={ResetPasswordPage}/>
+            <Route path="/sign-up" component={SignUpPage}/>
           </IonRouterOutlet>
         </Layout>
       </IonReactRouter>

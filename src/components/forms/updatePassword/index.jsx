@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../../supabaseClient';
-import { useNavigate } from 'react-router-dom';
+import { useIonRouter } from '@ionic/react';
 
 export default function UpdatePassword() {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  
+  const router = useIonRouter();
 
   useEffect(() => {
     
@@ -45,7 +46,7 @@ export default function UpdatePassword() {
       setError(error.message);
     } else {
       setMessage('Password updated - redirecting to login-page');
-      setTimeout(() => navigate('/login'), 3000);
+      setTimeout(() => router.push('/login', 'forward'), 3000);
     }
 
     setLoading(false);
