@@ -13,6 +13,7 @@
     "sass": "^1.83.0",
     "bootstrap": "^5.3.3",
     "react-bootstrap": "^2.10.7",
+    "react-router-dom": "^6.16.0",
     "react-icons": "^5.4.0",
     "@supabase/supabase-js": "^2.47.10"
   },
