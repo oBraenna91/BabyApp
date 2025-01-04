@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import HomePage from './pages/home';
 import ProfilePage from './pages/profile';
 import MessagesPage from './pages/messages';
@@ -20,7 +20,6 @@ function App() {
             <Route path="/messages" component={MessagesPage} />
             <Route path="/discover" component={DiscoverPage} />
             <Route path="/settings" component={SettingsPage} />
-            <Redirect exact from="/" to="/home" />
           </IonRouterOutlet>
         </Layout>
       </IonReactRouter>
