@@ -2,13 +2,26 @@ import React from 'react';
 import styles from './styles.module.scss';
 import { FaHome, FaUser, FaEnvelope, FaSearch, FaCog } from 'react-icons/fa';
 import { useIonRouter } from '@ionic/react';
+import { routesOrder } from '../../routesOrder';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 export default function Header() {
   const router = useIonRouter();
+  const location = useLocation();
 
+  // const navigate = (path) => {
+  //   router.push(path);
+  // };
   const navigate = (path) => {
-    router.push(path, 'forward'); // Bruk 'forward' for å indikere fremover-animasjon
+    const currentOrder = routesOrder[location.pathname] ?? 0;
+    const targetOrder = routesOrder[path] ?? 0;
+
+    const direction = targetOrder > currentOrder ? 'forward' : 'back';
+    console.log(`Navigating ${direction}: ${location.pathname} -> ${path}`);
+
+    router.push(path, direction);
   };
+
 
   return (
     <div className={`${styles.navbar} col-12 d-flex align-items-center justify-content-center px-3`}>
