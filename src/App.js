@@ -29,7 +29,6 @@ function App() {
             <Route path="/update-password" component={UpdatePasswordPage}/>
             <Route path="/reset-password" component={ResetPasswordPage}/>
             <Route path="/sign-up" component={SignUpPage}/>
-            {/* <Redirect exact from="/" to="/home" /> */}
           </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
