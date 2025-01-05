@@ -17,19 +17,19 @@ function App() {
   return (
     <IonApp>
       <IonReactRouter>
-        <Layout>
           <IonRouterOutlet>
-            <Route path="/home" component={HomePage} />
-            <Route path="/profile" component={ProfilePage} />
-            <Route path="/messages" component={MessagesPage} />
-            <Route path="/discover" component={DiscoverPage} />
-            <Route path="/settings" component={SettingsPage} />
+            <Layout>
+              <Route path="/home" component={HomePage} />
+              <Route path="/profile" component={ProfilePage} />
+              <Route path="/messages" component={MessagesPage} />
+              <Route path="/discover" component={DiscoverPage} />
+              <Route path="/settings" component={SettingsPage} />
+            </Layout>
             <Route path="/login" component={LoginPage}/>
             <Route path="/update-password" component={UpdatePasswordPage}/>
             <Route path="/reset-password" component={ResetPasswordPage}/>
             <Route path="/sign-up" component={SignUpPage}/>
           </IonRouterOutlet>
-        </Layout>
       </IonReactRouter>
     </IonApp>
   );
