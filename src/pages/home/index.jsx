@@ -1,8 +1,17 @@
 import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle } from '@ionic/react';
-import React from 'react';
+import React, {useEffect} from 'react';
 import LogoutButton from '../../components/logout-button';
+import { useAuthCheck } from '../../checkAuth';
 
 export default function HomePage() {
+
+    const { checkAuth } = useAuthCheck();
+
+    useEffect(() => {
+        checkAuth();
+    }, [checkAuth]);
+
+    
     return(
         <IonPage>
             <IonHeader>

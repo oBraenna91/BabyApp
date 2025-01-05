@@ -9,6 +9,13 @@ export default function Header() {
   const router = useIonRouter();
   const location = useLocation();
 
+  const hiddenRoutes = ['/login', '/sign-up', '/reset-password', '/update-password'];
+
+  // Skjul header hvis vi er på en av "hiddenRoutes"
+  if (hiddenRoutes.includes(location.pathname)) {
+    return null;
+  }
+
   // const navigate = (path) => {
   //   router.push(path);
   // };
