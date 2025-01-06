@@ -25,7 +25,7 @@ export default function LoginForm() {
       setError(error.message);
     } else {
         alert('You are now logged in!')
-      router.push('/home', 'forward');
+      router.push('/app', 'forward');
     }
 
     setLoading(false);

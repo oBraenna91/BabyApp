@@ -1,16 +1,15 @@
-import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle } from '@ionic/react';
-import React, {useEffect} from 'react';
+import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle, IonButton } from '@ionic/react';
+import React from 'react';
 import LogoutButton from '../../components/logout-button';
-import { useAuthCheck } from '../../checkAuth.js';
+import { useIonRouter } from '@ionic/react';
 
 export default function HomePage() {
 
-    const { checkAuth } = useAuthCheck();
+    const router = useIonRouter();
 
-    useEffect(() => {
-        checkAuth();
-    }, [checkAuth]);
-
+    const navigateToDetailsOnly = () => {
+        router.push('/detailsonly', 'forward');
+    }
 
     return(
         <IonPage>
@@ -23,6 +22,11 @@ export default function HomePage() {
                 <div>HOME PAGE</div>
                 <div className="my-5">
                     <LogoutButton />
+                </div>
+                <div className="my-5">
+                    <IonButton onClick={navigateToDetailsOnly}>
+                        Details only view
+                    </IonButton>
                 </div>
             </IonContent>
         </IonPage>

@@ -7,7 +7,7 @@ export const useAuthCheck = () => {
   const checkAuth = async () => {
     const { data } = await supabase.auth.getSession();
     if (!data?.session) {
-      router.push('/login', 'forward');
+      router.push('/', 'forward');
     }
   };
 

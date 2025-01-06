@@ -23,19 +23,19 @@ export default function Header() {
   return (
     <div className={`${styles.navbar} col-12 d-flex align-items-center justify-content-center px-3`}>
       <div className={`${styles.innerBar} d-flex align-items-center justify-content-between rounded-4 px-4 py-3 col-12 bg-primary`}>
-        <div className={styles.iconContainer} onClick={() => navigate('/home')}>
+        <div className={styles.iconContainer} onClick={() => navigate('/app')}>
           <FaHome className={`${styles.icon}`} />
         </div>
-        <div className={styles.iconContainer} onClick={() => navigate('/profile')}>
+        <div className={styles.iconContainer} onClick={() => navigate('/app/profile')}>
           <FaUser className={`${styles.icon}`} />
         </div>
-        <div className={styles.iconContainer} onClick={() => navigate('/messages')}>
+        <div className={styles.iconContainer} onClick={() => navigate('/app/messages')}>
           <FaEnvelope className={`${styles.icon}`} />
         </div>
-        <div className={styles.iconContainer} onClick={() => navigate('/discover')}>
+        <div className={styles.iconContainer} onClick={() => navigate('/app/discover')}>
           <FaSearch className={`${styles.icon}`} />
         </div>
-        <div className={styles.iconContainer} onClick={() => navigate('/settings')}>
+        <div className={styles.iconContainer} onClick={() => navigate('/app/settings')}>
           <FaCog className={`${styles.icon}`} />
         </div>
       </div>
