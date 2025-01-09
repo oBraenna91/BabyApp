@@ -25,7 +25,7 @@ export default function Tabs() {
                     <div>Home</div>
                 </IonTabButton>
                 <IonTabButton tab="profile" href="/app/profile">
-                    <div>Profile</div>
+                    <div>Services</div>
                 </IonTabButton>
                 <IonTabButton tab="discover" href="/app/discover">
                     <div>Discover</div>
