@@ -10,7 +10,7 @@ export default function DetailsOnlyPage() {
                     <IonButtons slot="start">
                         <IonBackButton defaultHref="/app/home"/>
                     </IonButtons>
-                    <IonTitle>Details Page</IonTitle>
+                    <IonTitle>Add new service</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">

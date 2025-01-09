@@ -1,6 +1,7 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonButton, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
+import { useIonRouter } from '@ionic/react';
 
 export default function ProfilePage() {
 
@@ -56,6 +57,12 @@ export default function ProfilePage() {
         fetchServices();
       }, []);
 
+      const router = useIonRouter();
+
+    const navigateToDetailsOnly = () => {
+        router.push('/detailsonly', 'forward');
+    }
+
     return(
         <IonPage>
             <IonHeader>
@@ -84,6 +91,11 @@ export default function ProfilePage() {
                     ))}
                 </div>
                 )}
+                <div className="my-5">
+                    <IonButton onClick={navigateToDetailsOnly}>
+                        Add services
+                    </IonButton>
+                </div>
             </IonContent>
         </IonPage>
     )
