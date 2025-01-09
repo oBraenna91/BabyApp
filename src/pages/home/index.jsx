@@ -2,6 +2,7 @@ import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle, IonButton } from 
 import React from 'react';
 import LogoutButton from '../../components/logout-button';
 import { useIonRouter } from '@ionic/react';
+import AddProviderForm from '../../components/forms/addProvider';
 
 export default function HomePage() {
 
@@ -27,6 +28,9 @@ export default function HomePage() {
                     <IonButton onClick={navigateToDetailsOnly}>
                         Details only view
                     </IonButton>
+                </div>
+                <div className="my-5">
+                    <AddProviderForm />
                 </div>
             </IonContent>
         </IonPage>

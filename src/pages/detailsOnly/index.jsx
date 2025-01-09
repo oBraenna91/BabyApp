@@ -1,5 +1,6 @@
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
+import AddServiceForm from '../../components/forms/addService';
 
 export default function DetailsOnlyPage() {
     return(
@@ -12,7 +13,9 @@ export default function DetailsOnlyPage() {
                     <IonTitle>Details Page</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <IonContent className="ion-padding"></IonContent>
+            <IonContent className="ion-padding">
+                <AddServiceForm />
+            </IonContent>
         </IonPage>
     )
 }
