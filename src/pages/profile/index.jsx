@@ -1,13 +1,16 @@
-import { IonContent, IonButton, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItemSliding, IonItem, IonLabel, IonItemOptions, IonItemOption, IonButton, IonIcon, IonAlert } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import { useIonRouter } from '@ionic/react';
+import { trashOutline } from 'ionicons/icons';
 
 export default function ProfilePage() {
 
     const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [errorMsg, setErrorMsg] = useState(null);
+    const [serviceToDelete, setServiceToDelete] = useState(null);
+    const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -63,6 +66,33 @@ export default function ProfilePage() {
         router.push('/detailsonly', 'forward');
     }
 
+    const confirmDeleteService = (service) => {
+        setServiceToDelete(service);
+        setShowAlert(true);
+      };
+
+    const handleDeleteService = async () => {
+    if (!serviceToDelete) return;
+
+    const { error } = await supabase
+        .from('services')
+        .delete()
+        .eq('id', serviceToDelete.id);
+
+    if (error) {
+        console.error('Feil ved sletting av tjeneste:', error.message);
+        alert('Kunne ikke slette tjeneste: ' + error.message);
+    } else {
+        // Oppdater lokale tjenester etter sletting
+        setServices(services.filter(service => service.id !== serviceToDelete.id));
+        alert('Tjeneste slettet!');
+    }
+
+    // Nullstill tilstand
+    setServiceToDelete(null);
+    setShowAlert(false);
+    };
+
     return(
         <IonPage>
             <IonHeader>
@@ -79,23 +109,54 @@ export default function ProfilePage() {
                 )}
 
                 {!loading && services.length > 0 && (
-                <div>
-                    {services.map((service) => (
-                    <div key={service.id} style={{ border: '1px solid #ccc', margin: '1em', padding: '1em' }}>
-                        <h3>{service.title}</h3>
-                        <p>Pris: {service.price}</p>
-                        {service.tags && service.tags.length > 0 && (
-                        <p>Tags: {service.tags.join(', ')}</p>
-                        )}
-                    </div>
-                    ))}
-                </div>
-                )}
+                        <IonList>
+                            {services.map((service) => (
+                            <IonItemSliding key={service.id}>
+                                <IonItem>
+                                <IonLabel>
+                                    <h3>{service.title}</h3>
+                                    <p>Pris: {service.price}</p>
+                                    {service.tags && service.tags.length > 0 && (
+                                    <p>Tags: {service.tags.join(', ')}</p>
+                                    )}
+                                </IonLabel>
+                                </IonItem>
+                                <IonItemOptions side="end">
+                                <IonItemOption color="danger" onClick={() => confirmDeleteService(service)}>
+                                    <IonIcon slot="icon-only" icon={trashOutline} />
+                                </IonItemOption>
+                                </IonItemOptions>
+                            </IonItemSliding>
+                            ))}
+                        </IonList>
+                    )}
                 <div className="my-5">
                     <IonButton onClick={navigateToDetailsOnly}>
                         Add services
                     </IonButton>
                 </div>
+                <IonAlert
+          isOpen={showAlert}
+          onDidDismiss={() => setShowAlert(false)}
+          header={'Bekreft sletting'}
+          message={`Er du sikker på at du vil slette tjenesten "${serviceToDelete?.title}"?`}
+          buttons={[
+            {
+              text: 'Avbryt',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: () => {
+                setShowAlert(false);
+              },
+            },
+            {
+              text: 'Slett',
+              handler: () => {
+                handleDeleteService();
+              },
+            },
+          ]}
+        />
             </IonContent>
         </IonPage>
     )
