@@ -1,8 +1,8 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItemSliding, IonItem, IonLabel, IonItemOptions, IonItemOption, IonButton, IonIcon, IonAlert } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItemSliding, IonItem, IonLabel, IonItemOptions, IonItemOption, IonButton, IonIcon, IonAlert, IonModal, IonInput, IonItemDivider } from '@ionic/react';
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import { useIonRouter } from '@ionic/react';
-import { trashOutline } from 'ionicons/icons';
+import { trashOutline, pencilOutline } from 'ionicons/icons';
 
 export default function ProfilePage() {
 
@@ -11,6 +11,12 @@ export default function ProfilePage() {
     const [errorMsg, setErrorMsg] = useState(null);
     const [serviceToDelete, setServiceToDelete] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingService, setEditingService] = useState(null);
+    const [editedTitle, setEditedTitle] = useState('');
+    const [editedPrice, setEditedPrice] = useState('');
+    const [editedTags, setEditedTags] = useState('');
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -93,6 +99,52 @@ export default function ProfilePage() {
     setShowAlert(false);
     };
 
+    const openEditModal = (service) => {
+        setEditingService(service);
+        // Sett forhåndsutfylte verdier fra valgt tjeneste
+        setEditedTitle(service.title);
+        setEditedPrice(service.price.toString());
+        setEditedTags(service.tags ? service.tags.join(', ') : '');
+        setIsModalOpen(true);
+      };
+    
+      // Lukk modal
+      const closeEditModal = () => {
+        setIsModalOpen(false);
+        setEditingService(null);
+      };
+    
+      // Håndter lagring av redigering
+      const handleSaveEdit = async () => {
+        if (!editingService) return;
+    
+        const updatedData = {
+          title: editedTitle,
+          price: parseFloat(editedPrice),
+          tags: editedTags.split(',').map(tag => tag.trim()),
+        };
+    
+        // Oppdater tjeneste i Supabase
+        //eslint-disable-next-line
+        const { data, error } = await supabase
+          .from('services')
+          .update(updatedData)
+          .eq('id', editingService.id)
+          .single();
+    
+        if (error) {
+          console.error('Feil ved oppdatering av tjeneste:', error.message);
+          alert('Kunne ikke oppdatere tjeneste: ' + error.message);
+        } else {
+        //   setServices(services.map(service => 
+        //     service.id === editingService.id ? data : service
+        //   ));
+          alert('Tjeneste oppdatert!');
+          window.location.reload();
+          closeEditModal();
+        }
+      };
+
     return(
         <IonPage>
             <IonHeader>
@@ -122,6 +174,9 @@ export default function ProfilePage() {
                                 </IonLabel>
                                 </IonItem>
                                 <IonItemOptions side="end">
+                                <IonItemOption color="primary" onClick={() => openEditModal(service)}>
+                                    <IonIcon slot="icon-only" icon={pencilOutline} />
+                                </IonItemOption>
                                 <IonItemOption color="danger" onClick={() => confirmDeleteService(service)}>
                                     <IonIcon slot="icon-only" icon={trashOutline} />
                                 </IonItemOption>
@@ -157,6 +212,46 @@ export default function ProfilePage() {
             },
           ]}
         />
+        <IonModal isOpen={isModalOpen} onDidDismiss={closeEditModal}>
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>Rediger Tjeneste</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className="bottom-sheet-content">
+            <IonList>
+              <IonItemDivider>Detaljer</IonItemDivider>
+              <IonItem>
+                <IonLabel position="stacked">Tittel</IonLabel>
+                <IonInput
+                  value={editedTitle}
+                  onIonInput={(e) => setEditedTitle(e.detail.value)}
+                />
+              </IonItem>
+              <IonItem>
+                <IonLabel position="stacked">Pris</IonLabel>
+                <IonInput
+                  type="number"
+                  value={editedPrice}
+                  onIonInput={(e) => setEditedPrice(e.detail.value)}
+                />
+              </IonItem>
+              <IonItem>
+                <IonLabel position="stacked">Tags (kommaseparert)</IonLabel>
+                <IonInput
+                  value={editedTags}
+                  onIonInput={(e) => setEditedTags(e.detail.value)}
+                />
+              </IonItem>
+            </IonList>
+            <IonButton expand="block" onClick={handleSaveEdit}>
+              Lagre endringer
+            </IonButton>
+            <IonButton expand="block" color="medium" onClick={closeEditModal}>
+              Avbryt
+            </IonButton>
+          </IonContent>
+        </IonModal>
             </IonContent>
         </IonPage>
     )
