@@ -92,41 +92,48 @@ export default function AddServiceForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Legg til ny tjeneste</h2>
-
-      <label>
-        Tittel:
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-      </label>
-
-      <label>
-        Pris:
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
-      </label>
-
-      <label>
-        Tags (kommaseparert):
-        <input
-          type="text"
-          value={tags}
-          onChange={(e) => setTags(e.target.value)}
-        />
-      </label>
-
-      <button type="submit" disabled={loading}>
-        {loading ? 'Lagrer...' : 'Legg til tjeneste'}
-      </button>
-    </form>
+    <div className="col-10 m-auto">
+        <form className="qute-form" onSubmit={handleSubmit}>
+            <h2>Add new service</h2>
+            <div className="label-input-container">
+                <label className="label">
+                    Title:
+                </label>
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    required
+                    className="form-input"
+                    />
+            </div>
+            <div className="label-input-container">
+                <label className="label">
+                    Price:
+                </label>
+                <input
+                    type="number"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    required
+                    className="form-input"
+                    />
+            </div>
+            <div className="label-input-container">
+                <label className="label">
+                    Tags (comma separated):
+                </label>
+                <input
+                    className="form-input"
+                    type="text"
+                    value={tags}
+                    onChange={(e) => setTags(e.target.value)}
+                    />
+            </div>
+            <button className="submit-button" type="submit" disabled={loading}>
+                {loading ? 'Saving...' : 'Add service'}
+            </button>
+        </form>
+    </div>
   );
 }
