@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../../supabaseClient';
 import { useIonRouter } from '@ionic/react';
 import { trashOutline, pencilOutline } from 'ionicons/icons';
+import BottomSheetModal from '../../components/bottomSheetModal';
 
 export default function ProfilePage() {
 
@@ -17,6 +18,8 @@ export default function ProfilePage() {
     const [editedTitle, setEditedTitle] = useState('');
     const [editedPrice, setEditedPrice] = useState('');
     const [editedTags, setEditedTags] = useState('');
+
+    const [bottomSheetModalOpen, setBottomSheetModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchServices = async () => {
@@ -145,6 +148,14 @@ export default function ProfilePage() {
         }
       };
 
+      const openBottomSheetModal = () => {
+        setBottomSheetModalOpen(true);
+      }
+
+      const handleModalClose = () => {
+        setBottomSheetModalOpen(false);
+      };
+
     return(
         <IonPage>
             <IonHeader>
@@ -190,6 +201,42 @@ export default function ProfilePage() {
                         Add services
                     </IonButton>
                 </div>
+                <div>
+                    <IonButton onClick={openBottomSheetModal}>Åpne bottom</IonButton>
+                </div>
+                <BottomSheetModal title="TestModal" isOpen={bottomSheetModalOpen} onClose={handleModalClose} onBackdropClick={handleModalClose} breakpoints={[0.95]} initialBreakpointIndex={1}>
+                <IonList>
+              <IonItemDivider>Detaljer</IonItemDivider>
+              <IonItem>
+                <IonLabel position="stacked">Tittel</IonLabel>
+                <IonInput
+                  value={editedTitle}
+                  onIonInput={(e) => setEditedTitle(e.detail.value)}
+                />
+              </IonItem>
+              <IonItem>
+                <IonLabel position="stacked">Pris</IonLabel>
+                <IonInput
+                  type="number"
+                  value={editedPrice}
+                  onIonInput={(e) => setEditedPrice(e.detail.value)}
+                />
+              </IonItem>
+              <IonItem>
+                <IonLabel position="stacked">Tags (kommaseparert)</IonLabel>
+                <IonInput
+                  value={editedTags}
+                  onIonInput={(e) => setEditedTags(e.detail.value)}
+                />
+              </IonItem>
+            </IonList>
+            <IonButton expand="block" onClick={handleSaveEdit}>
+              Lagre endringer
+            </IonButton>
+            <IonButton expand="block" color="medium" onClick={closeEditModal}>
+              Avbryt
+            </IonButton>
+                </BottomSheetModal>
                 <IonAlert
           isOpen={showAlert}
           onDidDismiss={() => setShowAlert(false)}
