@@ -1,24 +1,40 @@
 import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle } from '@ionic/react';
 import React from 'react';
-import LogoutButton from '../../components/logout-button';
-import AddProviderForm from '../../components/forms/addProvider';
+import useUserIsAdmin from '../../hooks/useIsAdmin';
+import WeatherWidget from '../../components/weather';
+import ForecastWidget from '../../components/forecast';
 
 export default function HomePage() {
+
+    const isAdmin = useUserIsAdmin();
+
+    if(isAdmin === null) {
+        return(
+            <div>Laster...</div>
+        )
+    }
 
     return(
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>HOME</IonTitle>
+                    <IonTitle>HJEM</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <div>HOME PAGE</div>
-                <div className="my-5">
-                    <LogoutButton />
+                <div>
+                    Hei! Det er så fint at du er her!
+                    {isAdmin && (
+                        <div>
+                            Du er admin!
+                        </div>
+                    )}
                 </div>
-                <div className="my-5">
-                    <AddProviderForm />
+                <div>
+                    <WeatherWidget />
+                </div>
+                <div>
+                    <ForecastWidget />
                 </div>
             </IonContent>
         </IonPage>

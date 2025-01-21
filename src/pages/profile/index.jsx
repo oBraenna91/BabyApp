@@ -22,12 +22,13 @@ export default function ProfilePage() {
 
     const [bottomSheetModalOpen, setBottomSheetModalOpen] = useState(false);
 
+    const [providerID, setProviderID] = useState('');
+
     useEffect(() => {
         const fetchServices = async () => {
           setLoading(true);
           setErrorMsg(null);
           
-          // 1. Hent den innloggede brukeren
           const {
             data: { user },
             error: userError,
@@ -57,6 +58,7 @@ export default function ProfilePage() {
             .from('services')
             .select('*')
             .eq('provider_id', provider.id);
+            setProviderID(provider.id);
     
           if (servicesError) {
             setErrorMsg('Feil ved henting av tjenester: ' + servicesError.message);
@@ -206,7 +208,7 @@ export default function ProfilePage() {
                     <IonButton onClick={openBottomSheetModal}>Åpne bottom</IonButton>
                 </div>
                 <BottomSheetModal title="TestModal" isOpen={bottomSheetModalOpen} onClose={handleModalClose} onBackdropClick={handleModalClose} breakpoints={[0.95]} initialBreakpointIndex={1}>
-                    <AddServiceForm />
+                    <AddServiceForm providerId={providerID} />
                 </BottomSheetModal>
                 <IonAlert
           isOpen={showAlert}
