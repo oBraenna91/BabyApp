@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../../supabaseClient';
 import styles from './styles.module.scss';
+import AddGameForm from '../../forms/addGame';
+import { IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding } from '@ionic/react';
+import { pencilOutline, trashOutline } from 'ionicons/icons';
 
-const GamesList = () => {
+const GamesList = ({ isAdmin }) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,6 +25,42 @@ const GamesList = () => {
 
     fetchGames();
   }, []);
+
+  if(isAdmin) {
+    return(
+        <div>
+            <h2>Grener</h2>
+            <div className={styles.adminCardsContainer}>
+                {loading ? (
+                    <p>Laster grener...</p>
+                ) : (
+                    games.map((game) => (
+                    <div key={game.id} className={`${styles.card} rounded-5 d-flex flex-column align-items-center`}>
+                        <IonItemSliding key={game.id}>
+                            <IonItem lines="none" className={styles.flexContainer}>
+                                <div
+                                className={styles.adminImageParent}
+                                style={{ backgroundImage: `url(${game.picture_url})` }}
+                                ></div>
+                            </IonItem>
+                            <IonItemOptions side="end">
+                                <IonItemOption color="primary">
+                                <IonIcon slot="icon-only" icon={pencilOutline} />
+                                </IonItemOption>
+                                <IonItemOption color="danger">
+                                <IonIcon slot="icon-only" icon={trashOutline} />
+                                </IonItemOption>
+                            </IonItemOptions>
+                        </IonItemSliding>
+                        <h3 className="text-center">{game.title}</h3>
+                    </div>
+                    ))
+                )}
+            </div>
+            <AddGameForm />
+        </div>
+    )
+  }
 
   return (
     <div>

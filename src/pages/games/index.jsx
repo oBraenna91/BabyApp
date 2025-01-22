@@ -2,7 +2,6 @@ import { IonTitle, IonToolbar, IonPage, IonHeader, IonContent } from '@ionic/rea
 import React from 'react';
 import GamesList from '../../components/lists/games';
 import useUserIsAdmin from '../../hooks/useIsAdmin';
-import AddGameForm from '../../components/forms/addGame';
 
 export default function GamesPage() {
 
@@ -22,13 +21,8 @@ export default function GamesPage() {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="main-container">
-                {isAdmin && (
-                    <div>
-                        <AddGameForm />
-                    </div>
-                )}
                 <div className="">
-                    <GamesList />
+                    <GamesList isAdmin={isAdmin} />
                 </div>
             </IonContent>
         </IonPage>

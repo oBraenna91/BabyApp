@@ -16,6 +16,11 @@ body {
     font-style: normal;
 }
 
+// ion-item {
+//   --background: transparent; /* Fjern bakgrunn for å unngå overlap */
+//   --border-color: transparent; /* Fjern kantlinjer */
+// }
+
 .main-container {
     opacity:0;
     animation: fadeInUp 1s ease forwards;
