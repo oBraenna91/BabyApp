@@ -68,8 +68,8 @@
 .arrow-outer {
   font-size: 4rem;
   display: inline-block;
-  -webkit-animation: rotate-to 1.8s ease-in-out forwards;
-          animation: rotate-to 1.8s ease-in-out forwards;
+  -webkit-animation: rotate-to 2.8s ease-in-out forwards;
+          animation: rotate-to 2.8s ease-in-out forwards;
   -webkit-transform-origin: center;
           transform-origin: center;
 }

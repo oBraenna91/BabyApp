@@ -2,15 +2,15 @@ import { IonTabs, IonRouterOutlet, IonTabBar, IonTabButton, IonIcon } from '@ion
 import React from 'react';
 import HomePage from '../../pages/home';
 import { Redirect, Route } from 'react-router-dom/cjs/react-router-dom.min';
-import ProfilePage from '../../pages/profile';
-import DiscoverPage from '../../pages/discover';
-import ChatIcon from '../../visuals/icons/chat (1).svg';
 import HomeIcon from '../../visuals/icons/home.svg'
-import ProfileIcon from '../../visuals/icons/user (4).svg';
-import DiscoverIcon from '../../visuals/icons/compass.svg';
-import SettingsIcon from '../../visuals/icons/settings.svg';
-import MessagesPage from '../../pages/messages';
-import SettingsPage from '../../pages/settings';
+import Contestants from '../../visuals/icons/group (1).svg';
+import Games from '../../visuals/icons/dice.svg';
+import Results from '../../visuals/icons/podium.svg';
+import History from '../../visuals/icons/assessment.svg';
+import GamesPage from '../../pages/games';
+import HistoryPage from '../../pages/history';
+import ResultsPage from '../../pages/results';
+import ContestantsPage from '../../pages/contestants';
 
 export default function Tabs() {
     
@@ -18,10 +18,10 @@ export default function Tabs() {
         <IonTabs>
             <IonRouterOutlet>
                 <Route exact path="/app/home" component={HomePage}/>
-                <Route exact path="/app/profile" component={ProfilePage}/>
-                <Route exact path="/app/discover" component={DiscoverPage} />
-                <Route exact path="/app/messages" component={MessagesPage} />
-                <Route exact path="/app/settings" component={SettingsPage} />
+                <Route exact path="/app/games" component={GamesPage}/>
+                <Route exact path="/app/history" component={HistoryPage} />
+                <Route exact path="/app/results" component={ResultsPage} />
+                <Route exact path="/app/contestants" component={ContestantsPage} />
                 <Route exact path="/app">
                     <Redirect to="/app/home"/>
                 </Route> 
@@ -30,17 +30,17 @@ export default function Tabs() {
                 <IonTabButton tab="home" href="/app/home">
                     <IonIcon src={HomeIcon} />
                 </IonTabButton>
-                <IonTabButton tab="profile" href="/app/profile">
-                    <IonIcon src={ProfileIcon} />
+                <IonTabButton tab="contestants" href="/app/contestants">
+                    <IonIcon src={Contestants} />
                 </IonTabButton>
-                <IonTabButton tab="discover" href="/app/discover">
-                    <IonIcon src={DiscoverIcon} />
+                <IonTabButton tab="games" href="/app/games">
+                    <IonIcon src={Games} />
                 </IonTabButton>
-                <IonTabButton tab="messages" href="/app/messages">
-                    <IonIcon src={ChatIcon} />
+                <IonTabButton tab="results" href="/app/results">
+                    <IonIcon src={Results} />
                 </IonTabButton>
-                <IonTabButton tab="settings" href="/app/settings">
-                    <IonIcon src={SettingsIcon} />
+                <IonTabButton tab="history" href="/app/history">
+                    <IonIcon src={History} />
                 </IonTabButton>
             </IonTabBar>
         </IonTabs>

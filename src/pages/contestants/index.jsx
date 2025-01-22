@@ -1,16 +1,16 @@
+import { IonTitle, IonToolbar, IonPage, IonHeader, IonContent } from '@ionic/react';
 import React from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/react';
 
-export default function DiscoverPage() {
+export default function ContestantsPage() {
     return(
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>DISCOVER</IonTitle>
+                    <IonTitle>Contestants</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <div>DISCOVER page</div>
+                Her kommer contestants
             </IonContent>
         </IonPage>
     )

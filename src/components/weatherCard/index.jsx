@@ -1,6 +1,8 @@
 import React from 'react';
 import WeatherAnimation from '../weatherAnimations';
 import styles from './styles.module.scss';
+import Arrow from '../../visuals/icons/down-arrow.png';
+import Image from 'react-bootstrap/Image';
 
 const WeatherCard = ({ weather }) => {
   const { main, description, temp, feels_like, highest, lowest, windDir } = weather;
@@ -12,12 +14,13 @@ const WeatherCard = ({ weather }) => {
 
   return (
     <div className={`${styles.weatherCard} col-11 d-flex flex-column text-center rounded-5 p-3 shadow`}>
-      <div className="">
+      <div className="col-6 m-auto">
         <WeatherAnimation weatherType={main} />
       </div>
       <div className={styles.subDiv}>
         <WindDirection windDir={windDir} />
-        <div className={styles.header}>{Math.round(temp)}°C, {capitalizeFirstLetter(description)}</div>
+        <div className={styles.header}>{capitalizeFirstLetter(description)}</div>
+        <div className={styles.header}>{Math.round(temp)}°C</div>
         <div className={styles.sub}>Føles som: {Math.round(feels_like)}°C</div>
         <div className={styles.sub}>H : {Math.round(highest)}°C / L : {Math.round(lowest)}°C</div>
       </div>
@@ -46,7 +49,11 @@ const getWindDirection = (degree) => {
               '--wind-direction': `${windDir}deg`,
             }}
           >
-            <div className={styles['arrow-inner']}>⬆</div>
+            <div className={styles['arrow-inner']}>
+                <div className="col-2 m-auto mb-2">
+                    <Image src={Arrow} alt="arrow" fluid />
+                </div>
+            </div>
           </div>
           <p>Vind: {direction} ({windDir}°)</p>
         </div>

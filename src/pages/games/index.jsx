@@ -1,17 +1,16 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonTitle, IonToolbar, IonPage, IonHeader, IonContent } from '@ionic/react';
 import React from 'react';
 
-export default function SettingsPage() {
-
+export default function GamesPage() {
     return(
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>SETTINGS</IonTitle>
+                    <IonTitle>Games</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <div>Settings page</div>
+                Her kommer games
             </IonContent>
         </IonPage>
     )

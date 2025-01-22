@@ -1,17 +1,16 @@
-import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle } from '@ionic/react';
+import { IonTitle, IonToolbar, IonPage, IonHeader, IonContent } from '@ionic/react';
 import React from 'react';
 
-export default function MessagesPage() {
-
+export default function ResultsPage() {
     return(
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>MESSAGES</IonTitle>
+                    <IonTitle>Live resultater!</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <div>Message page</div>
+                Her kommer scoreboard!
             </IonContent>
         </IonPage>
     )
