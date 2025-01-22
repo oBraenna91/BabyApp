@@ -32,7 +32,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 25px;
+    // border-radius: 25px;
   }
 
   .adminCard {
@@ -45,10 +45,10 @@
     flex-grow: 1; /* Lar teksten fylle gjenværende plass */
   }
 
-  .roundedLeft {
-    border-radius: 25px 0 0 25px;
-  }
+//   .roundedLeft {
+//     border-radius: 25px 0 0 25px;
+//   }
 
-  .roundedRight {
-    border-radius: 0 25px 25px 0;
-  }
+//   .roundedRight {
+//     border-radius: 0 25px 25px 0;
+//   }
