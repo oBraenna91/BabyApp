@@ -21,7 +21,7 @@ export default function GamesPage() {
                     <IonTitle>Games</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <IonContent>
+            <IonContent className="main-container">
                 {isAdmin && (
                     <div>
                         <AddGameForm />
