@@ -13,7 +13,7 @@
 }
 
 .card {
-  min-width: 300px;
+  width: 300px;
   scroll-snap-align: center;
 }
 
@@ -28,29 +28,22 @@
 }
 
 .flexContainer {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  /* Sentrerer bilde og tekst vertikalt */
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  /* Lager plass mellom bilde og tekst */
-}
-
-.adminImageParent {
-  width: 500px;
-  /* Fast bredde */
-  height: 300px;
-  /* Fast høyde */
+  --inner-padding: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+  --background: transparent;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  border-radius: 8px;
-  /* Gjør bildet avrundet */
+  border-radius: 25px;
+}
+
+.adminCard {
+  width: 400px;
+  height: 300px;
+  scroll-snap-align: center;
 }
 
 .textContent {
@@ -60,5 +53,13 @@
       -ms-flex-positive: 1;
           flex-grow: 1;
   /* Lar teksten fylle gjenværende plass */
+}
+
+.roundedLeft {
+  border-radius: 25px 0 0 25px;
+}
+
+.roundedRight {
+  border-radius: 0 25px 25px 0;
 }
 /*# sourceMappingURL=styles.module.css.map */

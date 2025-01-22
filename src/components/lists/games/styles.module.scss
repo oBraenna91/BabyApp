@@ -9,7 +9,7 @@
 }
 
 .card {
-    min-width: 300px;
+    width: 300px;
     scroll-snap-align: center;
 }
 
@@ -21,32 +21,35 @@
     border-radius: 10px; // Valgfritt: gjør containeren avrundet
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25); // Valgfritt: legg til skygge
   }
-
-//   .adminImageParent {
-//     width: 100%; // Fast bredde
-//     height: 300px; // Fast høyde
-//     background-size: cover; // Fyll containeren og klipp til
-//     background-position: center; // Sentrer bildet
-//     border-radius: 10px; // Valgfritt: gjør containeren avrundet
-//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25); // Valgfritt: legg til skygge
-//   }
-
-.flexContainer {
-    display: flex;
-    align-items: center; /* Sentrerer bilde og tekst vertikalt */
-    justify-content: space-between; /* Lager plass mellom bilde og tekst */
-  }
   
-  .adminImageParent {
-    width: 500px; /* Fast bredde */
-    height: 300px; /* Fast høyde */
+  .flexContainer {
+    --inner-padding: 0;
+    --padding-start: 0;
+    --padding-end: 0;
+    --background: transparent;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 8px; /* Gjør bildet avrundet */
+    border-radius: 25px;
   }
+
+  .adminCard {
+    width: 400px;
+    height:300px;
+    scroll-snap-align: center;
+}
   
   .textContent {
     margin-left: 10px; /* Legg til litt avstand mellom bilde og tekst */
     flex-grow: 1; /* Lar teksten fylle gjenværende plass */
+  }
+
+  .roundedLeft {
+    border-radius: 25px 0 0 25px;
+  }
+
+  .roundedRight {
+    border-radius: 0 25px 25px 0;
   }

@@ -35,19 +35,15 @@ const GamesList = ({ isAdmin }) => {
                     <p>Laster grener...</p>
                 ) : (
                     games.map((game) => (
-                    <div key={game.id} className={`${styles.card} rounded-5 d-flex flex-column align-items-center`}>
-                        <IonItemSliding key={game.id}>
-                            <IonItem lines="none" className={styles.flexContainer}>
-                                <div
-                                className={styles.adminImageParent}
-                                style={{ backgroundImage: `url(${game.picture_url})` }}
-                                ></div>
+                    <div key={game.id} className={`d-flex flex-column align-items-center`}>
+                        <IonItemSliding className={`${styles.adminCard} shadow rounded-5`} key={game.id}>
+                            <IonItem lines="none" className={`${styles.flexContainer}`} style={{ backgroundImage: `url(${game.picture_url})` }}>
                             </IonItem>
-                            <IonItemOptions side="end">
-                                <IonItemOption color="primary">
+                            <IonItemOptions className="rounded-5" side="end">
+                                <IonItemOption className={styles.roundedLeft} color="primary">
                                 <IonIcon slot="icon-only" icon={pencilOutline} />
                                 </IonItemOption>
-                                <IonItemOption color="danger">
+                                <IonItemOption className={styles.roundedRight} color="danger">
                                 <IonIcon slot="icon-only" icon={trashOutline} />
                                 </IonItemOption>
                             </IonItemOptions>
