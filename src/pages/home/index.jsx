@@ -3,6 +3,7 @@ import React from 'react';
 import useUserIsAdmin from '../../hooks/useIsAdmin';
 import WeatherWidget from '../../components/weather';
 import ForecastWidget from '../../components/forecast';
+import WeatherAnimation from '../../components/weatherAnimations';
 
 export default function HomePage() {
 
@@ -29,6 +30,9 @@ export default function HomePage() {
                             Du er admin!
                         </div>
                     )}
+                </div>
+                <div>
+                    <WeatherAnimation />
                 </div>
                 <div>
                     <WeatherWidget />
