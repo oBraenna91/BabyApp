@@ -21,12 +21,17 @@ const useWeather = (location = 'Kragerø') => {
         }
 
         const data = await response.json();
-
+        console.log(data);
         setWeather({
           location: data.name,
+          main: data.weather[0].main,
+          feels_like: data.main.feels_like,
+          highest: data.main.temp_max,
+          lowest: data.main.temp_min,
           description: data.weather[0].description,
           temp: Math.round(data.main.temp),
           windSpeed: data.wind.speed,
+          windDir: data.wind.deg,
           icon: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
         });
       } catch (err) {

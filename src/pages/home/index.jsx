@@ -2,8 +2,9 @@ import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle } from '@ionic/rea
 import React from 'react';
 import useUserIsAdmin from '../../hooks/useIsAdmin';
 import WeatherWidget from '../../components/weather';
-import ForecastWidget from '../../components/forecast';
-import WeatherAnimation from '../../components/weatherAnimations';
+// import ForecastWidget from '../../components/forecast';
+// import WeatherAnimation from '../../components/weatherAnimations';
+import styles from './styles.module.scss';
 
 export default function HomePage() {
 
@@ -22,24 +23,22 @@ export default function HomePage() {
                     <IonTitle>HJEM</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <IonContent>
-                <div>
+            <IonContent className="main-container">
+                {/* <div>
                     Hei! Det er så fint at du er her!
                     {isAdmin && (
                         <div>
                             Du er admin!
                         </div>
                     )}
-                </div>
-                <div>
-                    <WeatherAnimation />
-                </div>
-                <div>
+                </div> */}
+                <div className='d-flex flex-column align-items-center pt-4'>
+                    <div className={`${styles.overskrift} text-center col-11`}>Været i Lovisenbergveien 70 akkurat nå</div>
                     <WeatherWidget />
                 </div>
-                <div>
+                {/* <div>
                     <ForecastWidget />
-                </div>
+                </div> */}
             </IonContent>
         </IonPage>
     )

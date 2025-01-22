@@ -1,11 +1,12 @@
 import React from 'react';
-import Sun from '../../animations/sun.json';
 import Lottie from 'lottie-react';
+import weatherAnimations from './weatherAnimations';
 
-export default function WeatherAnimation() {
+export default function WeatherAnimation({ weatherType }) {
+
+    const animationData = weatherAnimations[weatherType] || weatherAnimations['Clouds'];
+
     return(
-        <div>
-            <Lottie animationData={Sun}/>
-        </div>
+        <Lottie animationData={animationData}/>
     )
 }
