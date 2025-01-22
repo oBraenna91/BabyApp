@@ -12,7 +12,6 @@ const GamesList = () => {
         .from('games')
         .select('*')
         .order('created_at', { ascending: false });
-
       if (error) {
         console.error('Error fetching games:', error.message);
       } else {
@@ -32,13 +31,12 @@ const GamesList = () => {
                 <p>Laster grener...</p>
             ) : (
                 games.map((game) => (
-                <div key={game.id} className={`${styles.card} rounded-5 p-3`}>
-                    <h3>{game.title}</h3>
-                    <p>{game.description}</p>
-                    <p>Type: {game.type}</p>
-                    <p>Historisk: {game.is_historical ? 'Ja' : 'Nei'}</p>
-                    <p>Kombiner runder: {game.combine_rounds ? 'Ja' : 'Nei'}</p>
-                    <p>Poengtype: {game.score_type}</p>
+                <div key={game.id} className={`${styles.card} rounded-5 p-3 d-flex flex-column align-items-center`}>
+                    <div
+                        className={styles.imageParent}
+                        style={{ backgroundImage: `url(${game.picture_url})` }}
+                    ></div>
+                    <h3 className="text-center">{game.title}</h3>
                 </div>
                 ))
             )}

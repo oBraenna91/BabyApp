@@ -9,7 +9,15 @@
 }
 
 .card {
-    background-color: darkblue;
-    min-width: 400px;
+    min-width: 300px;
     scroll-snap-align: center;
 }
+
+.imageParent {
+    width: 300px; // Fast bredde
+    height: 300px; // Fast høyde
+    background-size: cover; // Fyll containeren og klipp til
+    background-position: center; // Sentrer bildet
+    border-radius: 10px; // Valgfritt: gjør containeren avrundet
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25); // Valgfritt: legg til skygge
+  }

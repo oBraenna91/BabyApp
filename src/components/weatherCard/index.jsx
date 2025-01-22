@@ -6,14 +6,26 @@ import Image from 'react-bootstrap/Image';
 
 const WeatherCard = ({ weather }) => {
   const { main, description, temp, feels_like, highest, lowest, windDir } = weather;
-  console.log(weather);
+
   const capitalizeFirstLetter = (text) => {
     if (!text) return '';
     return text.charAt(0).toUpperCase() + text.slice(1);
   };
 
+  const backgroundStyle = {
+    Clear: 'linear-gradient(135deg, #6dd5ed, #fff)', // Solskinn
+    Clouds: 'linear-gradient(135deg, #757f9a, #d7dde8)', // Skyer
+    Rain: 'linear-gradient(135deg, #3a7bd5, #00d2ff)', // Regn
+    Snow: 'linear-gradient(135deg, #83a4d4, #b6fbff)', // Snø
+    Drizzle: 'linear-gradient(135deg, #89f7fe, #66a6ff)', // Yr
+    Thunderstorm: 'linear-gradient(135deg, #373b44, #4286f4)', // Torden
+    Default: 'linear-gradient(135deg, #6dd5ed, #fff)', // Standard bakgrunn
+  };
+
+  const gradient = backgroundStyle[main] || backgroundStyle['Default'];
+
   return (
-    <div className={`${styles.weatherCard} col-11 d-flex flex-column text-center rounded-5 p-3 shadow`}>
+    <div className={`${styles.weatherCard} col-11 d-flex flex-column text-center rounded-5 p-3 shadow`} style={{ background: gradient }}>
       <div className="col-6 m-auto">
         <WeatherAnimation weatherType={main} />
       </div>
