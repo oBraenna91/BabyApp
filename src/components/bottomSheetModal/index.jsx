@@ -128,7 +128,7 @@ useEffect(() => {
       >
         <div className={styles.handleHeader}{...bind()}>
             <div className={styles.handle}></div>
-            <div className={styles.header}>{title}</div>
+            <div className={`${styles.header} text-center`}>{title}</div>
         </div>
         <div className={styles.content} ref={contentRef}>
           {children}

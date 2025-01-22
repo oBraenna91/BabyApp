@@ -43,7 +43,7 @@ const AddGameForm = ({ onGameAdded }) => {
     };
   
     return (
-      <form className="d-flex flex-column align-items-center" onSubmit={handleSubmit}>
+      <form className="d-flex mt-3 flex-column align-items-center" onSubmit={handleSubmit}>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {success && <p style={{ color: 'green' }}>Gren opprettet!</p>}
   

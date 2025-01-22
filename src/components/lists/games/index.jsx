@@ -4,10 +4,12 @@ import styles from './styles.module.scss';
 import AddGameForm from '../../forms/addGame';
 import { IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding } from '@ionic/react';
 import { pencilOutline, trashOutline } from 'ionicons/icons';
+import BottomSheetModal from '../../bottomSheetModal';
 
 const GamesList = ({ isAdmin }) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [bottomsSheetModalOpen, setBottomSheetModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -26,11 +28,21 @@ const GamesList = ({ isAdmin }) => {
     fetchGames();
   }, []);
 
+  const openBottomSheetModal = () => {
+    setBottomSheetModalOpen(true);
+  }
+
+  const handleModalClose = () => {
+    setBottomSheetModalOpen(false);
+  };
+
   if(isAdmin) {
     return(
         <div>
-            <h2>Grener</h2>
             <div className={styles.adminCardsContainer}>
+                <div onClick={openBottomSheetModal}>
+                    Legg til ny gren
+                </div>
                 {loading ? (
                     <p>Laster grener...</p>
                 ) : (
@@ -53,14 +65,15 @@ const GamesList = ({ isAdmin }) => {
                     ))
                 )}
             </div>
-            <AddGameForm />
+            <BottomSheetModal title="Legg til ny gren" isOpen={bottomsSheetModalOpen} onClose={handleModalClose} onBackdropClick={handleModalClose} breakpoints={[0.95]} initialBreakpointIndex={1}>
+                <AddGameForm />
+            </BottomSheetModal>
         </div>
     )
   }
 
   return (
     <div>
-      <h2>Grener</h2>
         <div className={styles.cardsContainer}>
             {loading ? (
                 <p>Laster grener...</p>
