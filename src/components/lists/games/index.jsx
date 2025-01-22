@@ -36,7 +36,7 @@ const GamesList = ({ isAdmin }) => {
                 ) : (
                     games.map((game) => (
                     <div key={game.id} className={`d-flex flex-column align-items-center`}>
-                        <IonItemSliding className={`${styles.adminCard} shadow rounded-5`} key={game.id}>
+                        <IonItemSliding className={`${styles.adminCard} col-10 shadow rounded-5`} key={game.id}>
                             <IonItem lines="none" className={`${styles.flexContainer}`} style={{ backgroundImage: `url(${game.picture_url})` }}>
                             </IonItem>
                             <IonItemOptions className="rounded-5" side="end">

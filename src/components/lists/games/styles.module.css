@@ -41,7 +41,6 @@
 }
 
 .adminCard {
-  width: 400px;
   height: 300px;
   scroll-snap-align: center;
 }
