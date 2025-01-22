@@ -5,11 +5,13 @@ import AddGameForm from '../../forms/addGame';
 import { IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding } from '@ionic/react';
 import { pencilOutline, trashOutline } from 'ionicons/icons';
 import BottomSheetModal from '../../bottomSheetModal';
+import EditGameForm from '../../forms/editGame';
 
 const GamesList = ({ isAdmin }) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [bottomsSheetModalOpen, setBottomSheetModalOpen] = useState(false);
+  const [bottomSheetModalOpen, setBottomSheetModalOpen] = useState(false);
+  const [editGame, setEditGame] = useState(null);
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -36,23 +38,34 @@ const GamesList = ({ isAdmin }) => {
     setBottomSheetModalOpen(false);
   };
 
+  const handleEdit = (game) => {
+    setEditGame(game);
+    setBottomSheetModalOpen(true);
+  };
+
+  const handleUpdate = (updatedGame) => {
+    setGames((prevGames) =>
+      prevGames.map((game) => (game.id === updatedGame.id ? updatedGame : game))
+    );
+  };
+
   if(isAdmin) {
     return(
         <div>
             <div className={styles.adminCardsContainer}>
-                <div onClick={openBottomSheetModal}>
-                    Legg til ny gren
+                <div className="col-6 m-auto bg-danger text-center rounded-5 my-5" onClick={openBottomSheetModal}>
+                   <strong>+</strong> Legg til ny gren
                 </div>
                 {loading ? (
                     <p>Laster grener...</p>
                 ) : (
                     games.map((game) => (
-                    <div key={game.id} className={`d-flex flex-column align-items-center`}>
+                    <div key={game.id} className={`d-flex flex-column mt-5 align-items-center`}>
                         <IonItemSliding className={`${styles.adminCard} col-10 shadow rounded-5`} key={game.id}>
                             <IonItem lines="none" className={`${styles.flexContainer}`} style={{ backgroundImage: `url(${game.picture_url})` }}>
                             </IonItem>
                             <IonItemOptions className="rounded-5" side="end">
-                                <IonItemOption className={styles.roundedLeft} color="primary">
+                                <IonItemOption className={styles.roundedLeft} color="primary" onClick={() => handleEdit(game)}>
                                 <IonIcon slot="icon-only" icon={pencilOutline} />
                                 </IonItemOption>
                                 <IonItemOption className={styles.roundedRight} color="danger">
@@ -65,8 +78,19 @@ const GamesList = ({ isAdmin }) => {
                     ))
                 )}
             </div>
-            <BottomSheetModal title="Legg til ny gren" isOpen={bottomsSheetModalOpen} onClose={handleModalClose} onBackdropClick={handleModalClose} breakpoints={[0.95]} initialBreakpointIndex={1}>
-                <AddGameForm />
+            <BottomSheetModal
+                title={editGame ? "Rediger gren" : "Legg til ny gren"}
+                isOpen={bottomSheetModalOpen}
+                onClose={handleModalClose}
+                onBackdropClick={handleModalClose}
+                breakpoints={[0.95]}
+                initialBreakpointIndex={1}
+                >
+                {editGame ? (
+                    <EditGameForm game={editGame} onUpdate={handleUpdate} onClose={handleModalClose} />
+                ) : (
+                    <AddGameForm />
+                )}
             </BottomSheetModal>
         </div>
     )
