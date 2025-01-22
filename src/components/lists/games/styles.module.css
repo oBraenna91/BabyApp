@@ -1,0 +1,19 @@
+.cardsContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-scroll-snap-type: x mandatory;
+      scroll-snap-type: x mandatory;
+  gap: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.card {
+  background-color: darkblue;
+  min-width: 400px;
+  scroll-snap-align: center;
+}
+/*# sourceMappingURL=styles.module.css.map */

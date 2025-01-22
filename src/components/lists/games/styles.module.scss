@@ -1,0 +1,15 @@
+.cardsContainer {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    gap: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.card {
+    background-color: darkblue;
+    min-width: 400px;
+    scroll-snap-align: center;
+}
