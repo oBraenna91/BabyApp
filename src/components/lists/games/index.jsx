@@ -6,12 +6,18 @@ import { IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding } from 
 import { pencilOutline, trashOutline } from 'ionicons/icons';
 import BottomSheetModal from '../../bottomSheetModal';
 import EditGameForm from '../../forms/editGame';
+import { useHistory } from 'react-router-dom';
 
 const GamesList = ({ isAdmin }) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(true);
   const [bottomSheetModalOpen, setBottomSheetModalOpen] = useState(false);
   const [editGame, setEditGame] = useState(null);
+  const history = useHistory();
+
+  const goToDetails = (id) => {
+    history.push(`/game/${id}`); 
+  };
 
   useEffect(() => {
     const fetchGames = async () => {
@@ -61,7 +67,7 @@ const GamesList = ({ isAdmin }) => {
                 ) : (
                     games.map((game) => (
                     <div key={game.id} className={`d-flex flex-column mt-5 align-items-center`}>
-                        <IonItemSliding className={`${styles.adminCard} col-10 shadow rounded-5`} key={game.id}>
+                        <IonItemSliding className={`${styles.adminCard} col-10 shadow rounded-5`} key={game.id} onClick={() => goToDetails(game.id)}>
                             <IonItem lines="none" className={`${styles.flexContainer}`} style={{ backgroundImage: `url(${game.picture_url})` }}>
                             </IonItem>
                             <IonItemOptions className="rounded-5" side="end">
@@ -103,7 +109,7 @@ const GamesList = ({ isAdmin }) => {
                 <p>Laster grener...</p>
             ) : (
                 games.map((game) => (
-                <div key={game.id} className={`${styles.card} rounded-5 p-3 d-flex flex-column align-items-center`}>
+                <div key={game.id} onClick={() => goToDetails(game.id)} className={`${styles.card} rounded-5 p-3 d-flex flex-column align-items-center`}>
                     <div
                         className={styles.imageParent}
                         style={{ backgroundImage: `url(${game.picture_url})` }}

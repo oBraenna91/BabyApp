@@ -8,9 +8,9 @@ import Games from '../../visuals/icons/dice.svg';
 import Results from '../../visuals/icons/podium.svg';
 import History from '../../visuals/icons/assessment.svg';
 import GamesPage from '../../pages/games';
-import HistoryPage from '../../pages/history';
 import ResultsPage from '../../pages/results';
 import ContestantsPage from '../../pages/contestants';
+import SeasonListPage from '../../pages/seasons';
 
 export default function Tabs() {
     
@@ -19,7 +19,7 @@ export default function Tabs() {
             <IonRouterOutlet>
                 <Route exact path="/app/home" component={HomePage}/>
                 <Route exact path="/app/games" component={GamesPage}/>
-                <Route exact path="/app/history" component={HistoryPage} />
+                <Route exact path="/app/seasons" component={SeasonListPage} />
                 <Route exact path="/app/results" component={ResultsPage} />
                 <Route exact path="/app/contestants" component={ContestantsPage} />
                 <Route exact path="/app">
@@ -39,7 +39,7 @@ export default function Tabs() {
                 <IonTabButton tab="results" href="/app/results">
                     <IonIcon src={Results} />
                 </IonTabButton>
-                <IonTabButton tab="history" href="/app/history">
+                <IonTabButton tab="history" href="/app/seasons">
                     <IonIcon src={History} />
                 </IonTabButton>
             </IonTabBar>
