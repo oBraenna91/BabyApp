@@ -25,8 +25,8 @@ const WeatherCard = ({ weather }) => {
   const gradient = backgroundStyle[main] || backgroundStyle['Default'];
 
   return (
-    <div className={`${styles.weatherCard} col-11 d-flex flex-column text-center rounded-5 p-3 shadow`} style={{ background: gradient }}>
-      <div className="col-6 m-auto">
+    <div className={`${styles.weatherCard} col-10 d-flex flex-column text-center rounded-5 p-3 shadow`} style={{ background: gradient }}>
+      <div className="col-12">
         <WeatherAnimation weatherType={main} />
       </div>
       <div className={styles.subDiv}>

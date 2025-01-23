@@ -1,16 +1,17 @@
 .header {
-  font-size: 2.5rem;
+  font-size: 2rem;
   text-align: center;
 }
 
 .sub {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 200;
   font-style: italic;
 }
 
 .subDiv {
-  margin-top: -10%;
+  margin-top: -25%;
+  padding-top: 0;
 }
 
 .weatherCard {

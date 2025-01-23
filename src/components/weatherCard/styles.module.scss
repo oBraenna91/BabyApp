@@ -1,16 +1,17 @@
 .header {
-    font-size: 2.5rem;
+    font-size: 2rem;
     text-align: center;
 }
 
 .sub {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 200;
     font-style: italic;
 }
 
 .subDiv {
-    margin-top: -10%;
+    margin-top: -25%;
+    padding-top: 0;
 }
 
 .weatherCard {
@@ -20,36 +21,6 @@
 }
 
 // #2193b0
-
-
-// @keyframes rotate-to {
-//     0% {
-//       transform: rotate(0deg);
-//     }
-//     50% {
-//         transform: rotate(360deg)
-//     }
-//     100% {
-//       transform: rotate(var(--wind-direction));
-//     }
-//   }
-  
-//   @keyframes pulse {
-//     0%, 100% {
-//       transform: scale(1);
-//     }
-//     50% {
-//       transform: scale(1.2);
-//     }
-//   }
-  
-//   .arrow {
-//     font-size: 4rem;
-//     display: inline-block;
-//     animation: rotate-to 1.8s ease-in-out forwards, pulse 3s infinite ease-in-out;
-//     animation-delay: 0s, 2s; 
-//     transform-origin: center; 
-//   }
 
 @keyframes rotate-to {
     0% {
