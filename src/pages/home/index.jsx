@@ -1,10 +1,8 @@
 import { IonContent, IonPage, IonHeader, IonToolbar, IonTitle } from '@ionic/react';
 import React from 'react';
 import useUserIsAdmin from '../../hooks/useIsAdmin';
-import WeatherWidget from '../../components/weather';
-// import ForecastWidget from '../../components/forecast';
-// import WeatherAnimation from '../../components/weatherAnimations';
 import styles from './styles.module.scss';
+import LogoutButton from '../../components/logout-button';
 
 export default function HomePage() {
 
@@ -20,7 +18,7 @@ export default function HomePage() {
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>HJEM</IonTitle>
+                    <IonTitle>HOME</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent className="main-container">
@@ -33,12 +31,11 @@ export default function HomePage() {
                     )}
                 </div> */}
                 <div className='d-flex flex-column align-items-center pt-4'>
-                    <div className={`${styles.overskrift} text-center col-11`}>Været i Lovisenbergveien 70 akkurat nå</div>
-                    <WeatherWidget />
+                    <div className={`${styles.overskrift} text-center col-11`}>FEED WILL COME HERE</div>
                 </div>
-                {/* <div>
-                    <ForecastWidget />
-                </div> */}
+                <div className="">
+                    <LogoutButton />
+                </div>
             </IonContent>
         </IonPage>
     )

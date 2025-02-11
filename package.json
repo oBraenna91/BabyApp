@@ -1,6 +1,6 @@
 {
-  "name": "kragero-appen",
-  "version": "0.1.0",
+  "name": "babyapp",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@ionic/react": "^8.4.1",
