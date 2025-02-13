@@ -7,6 +7,7 @@ import ResetPasswordPage from './pages/resetPassword';
 import SignUpPage from './pages/signUp';
 import Tabs from './components/tabsNavigation';
 import DetailsOnlyPage from './pages/detailsOnly';
+import ChildInfoPage from './pages/childDetails';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/sign-up" component={SignUpPage} />
             <Route path="/app" component={Tabs} />
             <Route path="/detailsonly" component={DetailsOnlyPage}/>
+            <Route path="/child-info/:childId" component={ChildInfoPage}/>
           </IonRouterOutlet>
       </IonReactRouter>
     </IonApp>
