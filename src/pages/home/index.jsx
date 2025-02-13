@@ -22,14 +22,6 @@ export default function HomePage() {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="main-container">
-                {/* <div>
-                    Hei! Det er så fint at du er her!
-                    {isAdmin && (
-                        <div>
-                            Du er admin!
-                        </div>
-                    )}
-                </div> */}
                 <div className='d-flex flex-column align-items-center pt-4'>
                     <div className={`${styles.overskrift} text-center col-11`}>FEED WILL COME HERE</div>
                 </div>
