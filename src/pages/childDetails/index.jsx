@@ -151,7 +151,7 @@ const ChildInfoPage = () => {
   };
 
   return (
-    <IonPage>
+    <IonPage className="page-top-padding">
       <IonHeader>
         <IonToolbar color="primary">
           <IonButtons slot="start">

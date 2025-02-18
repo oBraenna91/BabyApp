@@ -4,7 +4,7 @@ import LogoutButton from '../../components/logout-button';
 
 export default function SettingsPage() {
     return(
-        <IonPage>
+        <IonPage className="page-top-padding">
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>SETTINGS</IonTitle>

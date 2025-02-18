@@ -15,7 +15,7 @@ export default function LoginPage() {
   };
 
   return (
-    <IonPage>
+    <IonPage className="page-top-padding">
         <IonContent>
             <div>
                 <h1 className="text-center my-5">LOG IN</h1>

@@ -4,7 +4,7 @@ import ResetPasswordForm from '../../components/forms/resetPassword';
 
 export default function ResetPasswordPage() {
     return(
-        <IonPage>
+        <IonPage className="page-top-padding">
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">

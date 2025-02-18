@@ -7,11 +7,9 @@
     font-style: normal;
 }
 
-:root {
-  --ion-safe-area-top: env(safe-area-inset-top);
-  --ion-safe-area-bottom: env(safe-area-inset-bottom);
+.page-top-padding {
+  padding-top: 35px;
 }
-
 
 body {
     padding-top: 5vh;

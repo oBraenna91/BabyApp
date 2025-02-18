@@ -12,7 +12,7 @@ import UserIcon from '../../visuals/icons/user (4).svg';
 export default function Tabs() {
     
     return(
-        <IonTabs>
+        <IonTabs className="pb-3">
             <IonRouterOutlet>
                 <Route exact path="/app/home" component={HomePage}/>
                 <Route exact path="/app/myfamily" component={MyFamilyPage}/>

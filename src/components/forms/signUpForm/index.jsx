@@ -29,7 +29,7 @@ export default function SignUpForm() {
       }
 
   return (
-    <form className="qute-form col-10 m-auto" onSubmit={signUpUser}>
+    <form className="test-form col-10 m-auto" onSubmit={signUpUser}>
       {isLoading && <p>Loading...</p>}
       {errorMsg && <p style={{ color: 'red' }}>{errorMsg}</p>}
       {message && <p style={{ color: 'green' }}>{message}</p>}

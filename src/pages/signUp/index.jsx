@@ -4,7 +4,7 @@ import SignUpForm from '../../components/forms/signUpForm';
 
 export default function SignUpPage() {
     return(
-        <IonPage>
+        <IonPage className="page-top-padding">
             <IonHeader>
                 <IonToolbar>
                     <IonButtons slot="start">

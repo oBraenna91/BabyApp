@@ -33,7 +33,7 @@ export default function LoginForm() {
 
   return (
     <div className="login-container col-10 m-auto">
-      <form className="qute-form" onSubmit={handleLogin}>
+      <form className="test-form" onSubmit={handleLogin}>
         <div className="label-input-container">
           <label className="label">E-mail:</label>
           <input

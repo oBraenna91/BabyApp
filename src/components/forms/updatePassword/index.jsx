@@ -55,7 +55,7 @@ export default function UpdatePassword() {
   return (
     <div className="update-password-container">
       <h1 className="text-center my-5">Update password</h1>
-      <form className="qute-form col-10 m-auto" onSubmit={handleUpdatePassword}>
+      <form className="test-form col-10 m-auto" onSubmit={handleUpdatePassword}>
         <div className="label-input-container">
           <label className="label">New password:</label>
           <input

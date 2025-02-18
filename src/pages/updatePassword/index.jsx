@@ -4,7 +4,7 @@ import UpdatePassword from '../../components/forms/updatePassword';
 
 export default function UpdatePasswordPage() {
     return(
-        <IonPage>
+        <IonPage className="page-top-padding">
             <IonContent>
                 <UpdatePassword />
             </IonContent>
