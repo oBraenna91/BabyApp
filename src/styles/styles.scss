@@ -7,6 +7,12 @@
     font-style: normal;
 }
 
+:root {
+  --ion-safe-area-top: env(safe-area-inset-top);
+  --ion-safe-area-bottom: env(safe-area-inset-bottom);
+}
+
+
 body {
     padding-top: 5vh;
     padding-left: 3%;

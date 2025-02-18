@@ -1,5 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import React from 'react';
+import LogoutButton from '../../components/logout-button';
 
 export default function SettingsPage() {
     return(
@@ -10,7 +11,9 @@ export default function SettingsPage() {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="main-container">
-                Settings
+                <div className="col-12 d-flex justify-content-center mt-5">
+                    <LogoutButton />
+                </div>
             </IonContent>
         </IonPage>
     )

@@ -1,29 +1,53 @@
-import { IonContent, IonButton, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import React, { useState } from 'react';
+import {
+  IonContent,
+  IonButton,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/react';
+import React, { useState, useEffect } from 'react';
 import CreateChildForm from '../../components/forms/createChildForm';
-import CreateEventForm from '../../components/forms/createEvent';
 import MyChildrenList from '../../components/childList';
-import { useHistory } from 'react-router-dom';
 import BottomSheetModal from '../../components/bottomSheetModal';
+import { supabase } from '../../supabaseClient';
 
 export default function MyFamilyPage() {
-  const [selectedChildId, setSelectedChildId] = useState(null);
-  const history = useHistory();
+  const [childrenList, setChildrenList] = useState([]);
   const [showCreateChildModal, setShowCreateChildModal] = useState(false);
-  const [showCreateEventModal, setShowCreateEventModal] = useState(false);
 
-  const redirectToChildDetail = () => {
-    if (selectedChildId) {
-      history.push(`/child-info/${selectedChildId}`);
-    }
-  };
+  useEffect(() => {
+    const fetchUserChildren = async () => {
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser();
+      if (userError || !user) {
+        console.error('Feil ved henting av bruker', userError);
+        return;
+      }
 
-  const toggleSelectedChild = (childId) => {
-    if (selectedChildId === childId) {
-      setSelectedChildId(null);
-    } else {
-      setSelectedChildId(childId);
-    }
+      const { data, error } = await supabase
+        .from('child_members')
+        .select(`
+          relation,
+          children ( id, name, date_of_birth, created_at )
+        `)
+        .eq('user_id', user.id);
+
+      if (error) {
+        console.error('Feil ved henting av barn', error);
+      } else {
+        setChildrenList(data);
+      }
+    };
+
+    fetchUserChildren();
+  }, []);
+
+  const handleChildCreated = (newChild) => {
+    const newMember = { relation: 'admin', children: newChild };
+    setChildrenList((prevList) => [...prevList, newMember]);
   };
 
   return (
@@ -35,41 +59,22 @@ export default function MyFamilyPage() {
       </IonHeader>
       <IonContent className="main-container">
         <MyChildrenList
-          onChildSelect={toggleSelectedChild}
-          selectedChildId={selectedChildId}
+          childrenList={childrenList}
         />
-
         <div style={{ marginTop: '20px' }}>
           <IonButton onClick={() => setShowCreateChildModal(true)}>
             Create New Child
           </IonButton>
-          {selectedChildId && (
-            <>
-                <IonButton onClick={() => setShowCreateEventModal(true)}>
-                Create New Event
-                </IonButton>
-                <IonButton onClick={redirectToChildDetail}>
-                See Child's Events
-            </IonButton>
-            </>
-          )}
         </div>
-
-        {/* Bottom sheet for creating a child */}
         <BottomSheetModal
           isOpen={showCreateChildModal}
           onClose={() => setShowCreateChildModal(false)}
           onBackdropClick={() => setShowCreateChildModal(false)}
         >
-          <CreateChildForm onClose={() => setShowCreateChildModal(false)} />
-        </BottomSheetModal>
-
-        {/* Bottom sheet for creating an event */}
-        <BottomSheetModal
-          isOpen={showCreateEventModal}
-          onClose={() => setShowCreateEventModal(false)}
-        >
-          <CreateEventForm childId={selectedChildId} onClose={() => setShowCreateEventModal(false)} />
+          <CreateChildForm
+            onChildCreated={handleChildCreated}
+            onClose={() => setShowCreateChildModal(false)}
+          />
         </BottomSheetModal>
       </IonContent>
     </IonPage>

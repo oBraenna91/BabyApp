@@ -1,59 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { supabase } from '../../supabaseClient';
+import React from 'react';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/react';
+import { useHistory } from 'react-router-dom';
 
-const MyChildrenList = ({ onChildSelect, selectedChildId }) => {
-  const [childrenList, setChildrenList] = useState([]);
+const MyChildrenList = ({ childrenList }) => {
+  const history = useHistory();
 
-  useEffect(() => {
-    const fetchUserChildren = async () => {
-      const { data: { user }, error: userError } = await supabase.auth.getUser();
-      if (userError || !user) {
-        console.error('Feil ved henting av bruker', userError);
-        return;
-      }
-
-      const { data, error } = await supabase
-        .from('child_members')
-        .select(`
-          relation,
-          children ( id, name, date_of_birth, created_at )
-        `)
-        .eq('user_id', user.id);
-
-      if (error) {
-        console.error('Feil ved henting av barn', error);
-      } else {
-        setChildrenList(data);
-      }
-    };
-
-    fetchUserChildren();
-  }, []);
+  const handleCardClick = (childId) => {
+    history.push(`/child-info/${childId}`);
+  };
 
   return (
     <div>
-      <h2>My children</h2>
-      {childrenList.length === 0 ? (
-        <p>Ingen barn funnet.</p>
+      <h2>My Children</h2>
+      {childrenList && childrenList.length > 0 ? (
+        childrenList.map((member) => (
+          <IonCard key={member.children.id} onClick={() => handleCardClick(member.children.id)}>
+            <IonCardHeader>
+              <IonCardTitle>{member.children.name}</IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>
+              Fødselsdato: {member.children.date_of_birth} <br />
+              Relation: {member.relation}
+            </IonCardContent>
+          </IonCard>
+        ))
       ) : (
-        <ul>
-          {childrenList.map((member) => {
-            const isSelected = selectedChildId === member.children.id;
-            return (
-              <li
-                key={member.children.id}
-                onClick={() => onChildSelect(member.children.id)}
-                style={{ 
-                  cursor: 'pointer',
-                  fontWeight: isSelected ? 'bold' : 'normal',
-                  backgroundColor: isSelected ? '#e0e0e0' : 'transparent'
-                }}
-              >
-                {member.children.name} ({member.relation})
-              </li>
-            );
-          })}
-        </ul>
+        <p>No children found.</p>
       )}
     </div>
   );

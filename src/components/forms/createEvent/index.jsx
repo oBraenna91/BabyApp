@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { supabase } from '../../../supabaseClient';
 
-function CreateEventForm({ childId }) {
+function CreateEventForm({ childId, onEventCreated, onClose }) {
     const [eventType, setEventType] = useState('');
     const [description, setDescription] = useState('');
     const [eventDate, setEventDate] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
   
     async function handleCreateEvent(e) {
       e.preventDefault();
+      setIsLoading(true);
   
       const {
         data: { user },
@@ -16,6 +18,7 @@ function CreateEventForm({ childId }) {
   
       if (userError || !user) {
         console.error('Bruker ikke logget inn eller feil ved henting av bruker', userError);
+        setIsLoading(false);
         return;
       }
   
@@ -34,15 +37,20 @@ function CreateEventForm({ childId }) {
   
       if (eventError) {
         console.error('Feil ved opprettelse av hendelse', eventError);
+        setIsLoading(false);
         return;
+      }
+
+      if (onEventCreated) {
+        onEventCreated(eventData);
       }
   
       console.log('Event opprettet:', eventData);
   
-      // Nullstill skjema
       setEventType('');
       setDescription('');
       setEventDate('');
+      if (onClose) onClose();
     }
   
     return (
