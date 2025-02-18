@@ -19,7 +19,7 @@ const MyChildrenList = ({ childrenList }) => {
               <IonCardTitle>{member.children.name}</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              Fødselsdato: {member.children.date_of_birth} <br />
+              Date of Birth: {member.children.date_of_birth} <br />
               Relation: {member.relation}
             </IonCardContent>
           </IonCard>

@@ -52,6 +52,10 @@ function CreateEventForm({ childId, onEventCreated, onClose }) {
       setEventDate('');
       if (onClose) onClose();
     }
+
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
   
     return (
       <form className="test-form col-10 m-auto" onSubmit={handleCreateEvent}>

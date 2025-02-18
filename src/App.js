@@ -8,6 +8,7 @@ import SignUpPage from './pages/signUp';
 import Tabs from './components/tabsNavigation';
 import DetailsOnlyPage from './pages/detailsOnly';
 import ChildInfoPage from './pages/childDetails';
+import SetupUserPage from './pages/setupUser';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route exact path="/" component={LoginPage}/>
             <Route path="/login" component={LoginPage}/>
             <Route path="/reset-password" component={ResetPasswordPage}/>
+            <Route path="/setup-user" component={SetupUserPage} />
             <Route path="/sign-up" component={SignUpPage} />
             <Route path="/app" component={Tabs} />
             <Route path="/detailsonly" component={DetailsOnlyPage}/>
