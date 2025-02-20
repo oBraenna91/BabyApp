@@ -27,12 +27,15 @@ const MultiStepForm = ({ onComplete }) => {
   };
 
   const handleInputChange = (e) => {
-    const value = e.target.value;
-    setAnswers({ ...answers, [questions[currentStep].id]: value });
+    const value = e.detail.value;
+    setAnswers((prev) => ({
+      ...prev,
+      [questions[currentStep].id]: value,
+    }));
   };
 
   const currentAnswer = answers[questions[currentStep]?.id] || '';
-  const isInputValid = currentAnswer.length >= 3;
+  const isInputValid = currentAnswer.trim().length > 0;
 
   return (
     <div style={{ position: 'relative', height: '200px' }}>
@@ -42,7 +45,8 @@ const MultiStepForm = ({ onComplete }) => {
             style={{ 
               ...style, 
               position: 'absolute', 
-              width: '100%' 
+              width: '100%',
+              top:'150px'
             }}
           >
             <IonCard>
@@ -50,7 +54,7 @@ const MultiStepForm = ({ onComplete }) => {
                 <h3>{questions[currentStep].label}</h3>
                 <IonInput
                   value={currentAnswer}
-                  onIonChange={handleInputChange}
+                  onIonInput={handleInputChange}
                   placeholder="Write your answer here"
                 />
                 <IonButton

@@ -103,13 +103,15 @@ import {
 import { supabase } from '../../supabaseClient';
 import BottomSheetModal from '../../components/bottomSheetModal';
 import CreateEventForm from '../../components/forms/createEvent';
+import CreateMilestoneForm from '../../components/forms/createMilestone';
 
 const ChildInfoPage = () => {
   const { childId } = useParams();
   const [childData, setChildData] = useState(null);
   const [events, setEvents] = useState([]);
   const [error, setError] = useState(null);
-  const [showCreateEventModal, setShowCreateEventModal] = useState(false);
+  const [modalType, setModalType] = useState(null);
+  const [milestones, setMilestones] = useState([]);
 
   useEffect(() => {
     if (!childId) return;
@@ -142,12 +144,34 @@ const ChildInfoPage = () => {
       }
     };
 
+    const fetchChildMilestones = async () => {
+      const { data, error } = await supabase
+        .from('child_milestones')
+        .select('*')
+        .eq('child_id', childId)
+        .order('milestone_date', { ascending: true});
+        if(error){
+          console.error(error);
+          setError(error);
+        } else {
+          setMilestones(data);
+        }
+    }
+
     fetchChildDetails();
     fetchChildEvents();
+    fetchChildMilestones();
   }, [childId]);
+
+  const handleOpenModal = (type) => setModalType(type);
+  const handleCloseModal = () => setModalType(null);
 
   const handleEventCreated = (newEvent) => {
     setEvents((prevEvents) => [...prevEvents, newEvent]);
+  };
+
+  const handleMilestoneCreated = (newMilestone) => {
+    setEvents((prevMilestones) => [...prevMilestones, newMilestone]);
   };
 
   return (
@@ -169,7 +193,7 @@ const ChildInfoPage = () => {
         ) : (
           <p>Loading child's details…</p>
         )}
-        <IonButton onClick={() => setShowCreateEventModal(true)}>
+        <IonButton onClick={() => handleOpenModal("event")}>
           Create New Event
         </IonButton>
 
@@ -186,17 +210,42 @@ const ChildInfoPage = () => {
           <p>No events found 😔</p>
         )}
         {error && <p style={{ color: 'red' }}>Something went wrong: {error.message}</p>}
+        <h3>🎉 Milestones 🎉</h3>
+        {milestones && milestones.length > 0 ? (
+          <ul>
+            {milestones.map(m => (
+              <li key={m.id}>
+                <strong>{m.name}</strong>: {m.description} – {m.milestone_date}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No milestones found 😔</p>
+        )}
+        {error && <p style={{ color: 'red' }}>Something went wrong: {error.message}</p>}
+        <IonButton onClick={() => handleOpenModal("milestone")}>
+          Create New Milestone
+        </IonButton>
         <BottomSheetModal
-          isOpen={showCreateEventModal}
-          onClose={() => setShowCreateEventModal(false)}
-          onBackdropClick={() => setShowCreateEventModal(false)}
-        >
-          <CreateEventForm 
-            childId={childId} 
-            onEventCreated={handleEventCreated}
-            onClose={() => setShowCreateEventModal(false)} 
-          />
-        </BottomSheetModal>
+  isOpen={modalType !== null}
+  onClose={handleCloseModal}
+  onBackdropClick={handleCloseModal}
+>
+  {modalType === "event" && (
+    <CreateEventForm 
+      childId={childId} 
+      onEventCreated={handleEventCreated}
+      onClose={handleCloseModal} 
+    />
+  )}
+  {modalType === "milestone" && (
+    <CreateMilestoneForm 
+      childId={childId} 
+      onMilestoneCreated={handleMilestoneCreated}
+      onClose={handleCloseModal} 
+    />
+  )}
+</BottomSheetModal>
       </IonContent>
     </IonPage>
   );

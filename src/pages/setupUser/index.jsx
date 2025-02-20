@@ -1,19 +1,14 @@
 import React from 'react';
 import { supabase } from '../../supabaseClient';
 import MultiStepForm from '../../components/forms/createUserForm';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, useIonRouter } from '@ionic/react';
+import { IonPage, IonContent, useIonRouter } from '@ionic/react';
 
 const SetupUserPage = () => {
   const router = useIonRouter();
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Setup User</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
+      <IonContent>
           <MultiStepForm onComplete={async (answers) => {
             const { data: { user } } = await supabase.auth.getUser();
             const { data: userEntry, error } = await supabase

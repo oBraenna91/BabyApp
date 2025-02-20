@@ -51,13 +51,13 @@ export default function MyFamilyPage() {
   };
 
   return (
-    <IonPage className="page-top-padding">
+    <IonPage>
       <IonHeader>
         <IonToolbar>
           <IonTitle>My Family</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="main-container">
+      <IonContent>
         <MyChildrenList
           childrenList={childrenList}
         />

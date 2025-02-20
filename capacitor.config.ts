@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.babyapp.braennaconsult',
-  appName: 'Snap nest',
+  appName: 'Cherishly',
   webDir: 'build'
 };
 
