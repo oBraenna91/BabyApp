@@ -1,1 +1,14 @@
-/* No CSS *//*# sourceMappingURL=variables.css.map */
+:root {
+  --ion-color-primary: #B272A4 !important;
+  --ion-color-primary-rgb: 178, 114, 164 !important;
+  --ion-color-primary-contrast: #ffffff !important;
+  --ion-color-primary-contrast-rgb: 255, 255, 255 !important;
+  --ion-color-primary-shade: #9e6491 !important;
+  --ion-color-primary-tint: #c285b2 !important;
+}
+
+ion-button {
+  --color: $primary;
+  color: #FFF;
+}
+/*# sourceMappingURL=variables.css.map */

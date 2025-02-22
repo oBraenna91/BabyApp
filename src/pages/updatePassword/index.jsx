@@ -5,7 +5,7 @@ import UpdatePassword from '../../components/forms/updatePassword';
 export default function UpdatePasswordPage() {
     return(
         <IonPage className="page-top-padding">
-            <IonContent>
+            <IonContent style={{ '--padding-top': 'env(safe-area-inset-top)' }}>
                 <UpdatePassword />
             </IonContent>
         </IonPage>

@@ -1,0 +1,84 @@
+:root {
+  --ion-color-primary: #B272A4 !important;
+  --ion-color-primary-rgb: 178, 114, 164 !important;
+  --ion-color-primary-contrast: #ffffff !important;
+  --ion-color-primary-contrast-rgb: 255, 255, 255 !important;
+  --ion-color-primary-shade: #9e6491 !important;
+  --ion-color-primary-tint: #c285b2 !important;
+}
+
+ion-button {
+  --color: $primary;
+  color: #FFF;
+}
+
+.headerContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.main {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+.cardContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow-x: auto;
+  -ms-scroll-snap-type: x mandatory;
+      scroll-snap-type: x mandatory;
+  white-space: nowrap;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.card {
+  width: 250px;
+  height: 250px;
+  scroll-snap-align: center;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 auto;
+          flex: 0 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #F4F4F4;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.button {
+  background-color: #B272A4;
+  width: 150px;
+  margin-top: 15px;
+}
+
+.imageContainer {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.image {
+  width: 50%;
+}
+/*# sourceMappingURL=styles.module.css.map */

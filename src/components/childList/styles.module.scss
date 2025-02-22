@@ -1,0 +1,49 @@
+@import '../../styles/variables.scss';
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.main {
+    width:100%;
+    overflow-x: hidden;
+}
+
+.cardContainer {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    white-space: nowrap;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.card {
+    width: 250px;
+    height: 250px;
+    scroll-snap-align: center;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    background-color: $secondary;
+    align-items: center;
+    text-align: center;
+}
+
+.button {
+    background-color: $primary;
+    width: 150px;
+    margin-top: 15px;
+}
+
+.imageContainer {
+    width:100%;
+    display: flex;
+    justify-content: center;
+}
+
+.image {
+    width: 50%;
+}

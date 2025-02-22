@@ -28,8 +28,8 @@ export default function ResetPasswordForm() {
 
   return (
     <div className="reset-password-container">
-      <h1 className="text-center my-5">Reset password</h1>
-      <form className="test-form col-10 m-auto" onSubmit={handlePasswordReset}>
+      <h1 className="text-center">Reset password</h1>
+      <form className="test-form " onSubmit={handlePasswordReset}>
         <div className="label-input-container">
           <label className="label">E-mail:</label>
           <input

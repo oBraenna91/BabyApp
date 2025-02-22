@@ -10,13 +10,14 @@ export default function SettingsPage() {
         const fetchUserData = async () => {
             const { data: user, error } = await supabase
                 .from('users')
-                .select('first_name, last_name, auth_users:auth(email)')
+                .select('first_name, last_name')
                 .eq('id', (await supabase.auth.getUser()).data?.user?.id)
                 .single();
 
             if (error) {
                 console.error("Error fetching user data:", error);
             } else {
+                console.log(user);
                 setUserData({
                     first_name: user?.first_name || '',
                     last_name: user?.last_name || '',
@@ -36,11 +37,10 @@ export default function SettingsPage() {
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <div className="col-12 d-flex flex-column align-items-center mt-5">
+                <div className="">
                     {userData ? (
                         <>
-                            <h2>{userData.first_name} {userData.last_name}</h2>
-                            <p>{userData.email}</p>
+                            Name:<h2>{userData.first_name} {userData.last_name}</h2>
                         </>
                     ) : (
                         <p>Laster brukerinfo...</p>
