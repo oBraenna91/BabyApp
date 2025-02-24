@@ -2,11 +2,11 @@ import React from 'react';
 import { supabase } from '../../supabaseClient';
 import MultiStepForm from '../../components/forms/createUserForm';
 import { IonPage, IonContent, 
-  useIonRouter 
+  //useIonRouter 
 } from '@ionic/react';
 
 const SetupUserPage = () => {
-  const router = useIonRouter();
+  //const router = useIonRouter();
 
   return (
     <IonPage>
@@ -28,8 +28,8 @@ const SetupUserPage = () => {
         } else {
           console.log('Bruker opprettet:', userEntry);
           alert('User updated! You can always change this information in the settings page.')
-          router.push('/app', 'forward');
-          // window.location.reload();
+          //router.push('/app', 'forward');
+          window.location.reload();
         }
       }} />
       </IonContent>
