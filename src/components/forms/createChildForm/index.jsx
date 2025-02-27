@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import { supabase } from '../../../supabaseClient';
+import { useAuth } from '../../../contexts/auth';
 
 const CreateChildForm = ({ onChildCreated, onClose }) => {
   const [childName, setChildName] = useState('');
   const [dob, setDob] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const { profile, user } = useAuth();
+  const familyId = profile?.primary_family_id;
 
   async function handleCreateChild(e) {
     e.preventDefault();
     setIsLoading(true);
 
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError || !user) {
-      console.error('Feil ved henting av bruker', userError);
+    if (!user || !familyId) {
+      console.error("Bruker er ikke logget inn eller primary_family_id mangler");
       setIsLoading(false);
       return;
     }
@@ -27,6 +25,7 @@ const CreateChildForm = ({ onChildCreated, onClose }) => {
         name: childName,
         date_of_birth: dob,
         created_by: user.id,
+        primary_family_id: familyId,
       })
       .select('*')
       .single();

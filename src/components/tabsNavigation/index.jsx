@@ -6,7 +6,9 @@ import HomeIcon from '../../visuals/icons/home.svg'
 import HeartIcon from '../../visuals/icons/heart.svg';
 import MyFamilyPage from '../../pages/myFamily';
 import SettingsPage from '../../pages/settings';
-import UserIcon from '../../visuals/icons/user (4).svg';
+//import UserIcon from '../../visuals/icons/user (4).svg';
+import RequestsList from '../../pages/requestPage';
+import SettingsTabButton from '../settingsTabButton';
 
 
 export default function Tabs() {
@@ -17,6 +19,7 @@ export default function Tabs() {
                 <Route exact path="/app/home" component={HomePage}/>
                 <Route exact path="/app/myfamily" component={MyFamilyPage}/>
                 <Route exact path="/app/settings" component={SettingsPage}/>
+                <Route pat="/app/requests" component={RequestsList}/>
                 <Route exact path="/app">
                     <Redirect to="/app/home"/>
                 </Route> 
@@ -24,12 +27,15 @@ export default function Tabs() {
             <IonTabBar slot="bottom">
                 <IonTabButton tab="home" href="/app/home">
                     <IonIcon src={HomeIcon} />
-                </IonTabButton>
+                </IonTabButton> 
                 <IonTabButton tab="myfamily" href="/app/myfamily">
                     <IonIcon src={HeartIcon} />
                 </IonTabButton>
-                <IonTabButton tab="settings" href="/app/settings">
+                {/* <IonTabButton tab="settings" href="/app/settings">
                     <IonIcon src={UserIcon} />
+                </IonTabButton> */}
+                <IonTabButton tab="settings" href="/app/settings">
+                    <SettingsTabButton />
                 </IonTabButton>
             </IonTabBar>
         </IonTabs>

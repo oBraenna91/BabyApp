@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import { supabase } from '../../../supabaseClient';
+import { useAuth } from '../../../contexts/auth';
 
 function CreateMilestoneForm({ childId, onMilestoneCreated, onClose }) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [milestoneDate, setMilestoneDate] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const { profile, user } = useAuth();
+    const familyId = profile?.primary_family_id;
   
     async function handleCreateEvent(e) {
       e.preventDefault();
       setIsLoading(true);
   
-      const {
-        data: { user },
-        error: userError
-      } = await supabase.auth.getUser();
-  
-      if (userError || !user) {
-        console.error('Bruker ikke logget inn eller feil ved henting av bruker', userError);
+      if (!user || !familyId) {
+        console.error("Bruker er ikke logget inn eller primary_family_id mangler");
         setIsLoading(false);
         return;
       }
@@ -28,6 +26,7 @@ function CreateMilestoneForm({ childId, onMilestoneCreated, onClose }) {
         .insert({
           child_id: childId,
           created_by: user.id,
+          family_id: familyId,
           name,
           description,
           milestone_date: milestoneDate
@@ -46,7 +45,7 @@ function CreateMilestoneForm({ childId, onMilestoneCreated, onClose }) {
       }
   
       console.log('Event opprettet:', milestoneData);
-  
+      alert('Milestone created 🏆')
       setName('');
       setDescription('');
       setMilestoneDate('');

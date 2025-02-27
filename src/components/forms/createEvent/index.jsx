@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import { supabase } from '../../../supabaseClient';
+import { useAuth } from '../../../contexts/auth';
 
 function CreateEventForm({ childId, onEventCreated, onClose }) {
     const [eventType, setEventType] = useState('');
     const [description, setDescription] = useState('');
     const [eventDate, setEventDate] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const { user, profile } = useAuth();
+    const familyId = profile?.primary_family_id;
   
     async function handleCreateEvent(e) {
       e.preventDefault();
       setIsLoading(true);
-  
-      const {
-        data: { user },
-        error: userError
-      } = await supabase.auth.getUser();
-  
-      if (userError || !user) {
-        console.error('Bruker ikke logget inn eller feil ved henting av bruker', userError);
+
+      if (!user || !familyId) {
+        console.error("Bruker er ikke logget inn eller primary_family_id mangler");
         setIsLoading(false);
         return;
       }
@@ -30,7 +28,8 @@ function CreateEventForm({ childId, onEventCreated, onClose }) {
           created_by: user.id,
           event_type: eventType,
           description: description,
-          event_date: eventDate
+          event_date: eventDate,
+          family_id: familyId
         })
         .select('*')
         .single();
@@ -46,7 +45,7 @@ function CreateEventForm({ childId, onEventCreated, onClose }) {
       }
   
       console.log('Event opprettet:', eventData);
-  
+      alert('Event created 🎉')
       setEventType('');
       setDescription('');
       setEventDate('');

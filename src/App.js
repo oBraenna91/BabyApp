@@ -135,26 +135,32 @@ import ChildInfoPage from './pages/childDetails';
 import SetupUserPage from './pages/setupUser';
 import { AuthProvider } from './contexts/auth';
 import ProtectedRoute from './privateRoute/privateRoute';
+import FamilyDetails from './pages/familyDetails';
+import { RequestCountProvider } from './contexts/RequestCount';
+import IndexRedirect from './pages/indexRedirect';
 
 function App() {
   return (
     <IonApp>
       <AuthProvider>
-        <IonReactRouter>
-          <IonRouterOutlet>
-            <Route exact path="/" component={LoginPage} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/reset-password" component={ResetPasswordPage} />
-            <Route path="/sign-up" component={SignUpPage} />
-            <Route path="/detailsonly" component={DetailsOnlyPage} />
-            {/* <Route path="/setup-user" component={SetupUserPage} />
-            <Route path="/app" component={Tabs} />
-            <Route path="/child-info/:childId" component={ChildInfoPage} /> */}
-            <ProtectedRoute path="/setup-user" component={SetupUserPage} />
-            <ProtectedRoute path="/app" component={Tabs} />
-            <ProtectedRoute path="/child-info/:childId" component={ChildInfoPage} />
-          </IonRouterOutlet>
-        </IonReactRouter>
+        <RequestCountProvider>
+          <IonReactRouter>
+            <IonRouterOutlet>
+              <Route exact path="/" component={IndexRedirect} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/reset-password" component={ResetPasswordPage} />
+              <Route path="/sign-up" component={SignUpPage} />
+              <Route path="/detailsonly" component={DetailsOnlyPage} />
+              {/* <Route path="/setup-user" component={SetupUserPage} />
+              <Route path="/app" component={Tabs} />
+              <Route path="/child-info/:childId" component={ChildInfoPage} /> */}
+              <ProtectedRoute path="/setup-user" component={SetupUserPage} />
+              <ProtectedRoute path="/app" component={Tabs} />
+              <ProtectedRoute path="/child-info/:childId" component={ChildInfoPage} />
+              <ProtectedRoute path="/family/:familyId" component={FamilyDetails} />
+            </IonRouterOutlet>
+          </IonReactRouter>
+        </RequestCountProvider>
       </AuthProvider>
     </IonApp>
   );

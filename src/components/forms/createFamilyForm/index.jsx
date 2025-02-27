@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { IonItem, IonLabel, IonInput, IonButton } from '@ionic/react';
+import { IonButton } from '@ionic/react';
 import { supabase } from '../../../supabaseClient';
+import { useAuth } from '../../../contexts/auth';
 const CreateFamilyForm = ({ onFamilyCreated }) => {
     const [familyName, setFamilyName] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const { fetchProfile } = useAuth();
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -31,9 +33,18 @@ const CreateFamilyForm = ({ onFamilyCreated }) => {
             family_id: familyData.id,
             user_id: user.id,
             role: 'admin',
-            relation: 'founder'  // Kan endres til et passende begrep
           });
         if (memberError) throw memberError;
+
+        const { error: updateProfileError } = await supabase
+        .from('users')
+        .update({ primary_family_id: familyData.id })
+        .eq('id', user.id);
+      if (updateProfileError) throw updateProfileError;
+
+      await fetchProfile(user);
+
+      alert('Family created 🧑‍🧑‍🧒')
   
         // Kall callback for å informere om at familien er opprettet
         if (onFamilyCreated) {
@@ -47,15 +58,15 @@ const CreateFamilyForm = ({ onFamilyCreated }) => {
     };
   
     return (
-          <form className={`test-form bottom-padding`} onSubmit={handleSubmit}>
-            <IonItem>
-              <IonLabel position="stacked">Family Name</IonLabel>
-              <IonInput
-                value={familyName}
-                onIonChange={(e) => setFamilyName(e.detail.value)}
-                required
-              />
-            </IonItem>
+          <form className={`test-form double-test my-5 bottom-padding`} onSubmit={handleSubmit}>
+            <label className="label-input-container">Family name</label>
+            <input 
+              type="text"
+              value={familyName}
+              onChange={(e) => setFamilyName(e.target.value)}
+              required
+              className='form-input'
+            />
             {error && <p style={{ color: 'red' }}>{error}</p>}
             <IonButton type="submit" expand="block" disabled={loading}>
               {loading ? 'Creating...' : 'Create Family'}

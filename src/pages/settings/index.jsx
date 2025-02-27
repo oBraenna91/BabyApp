@@ -2,6 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import React, { useState, useEffect } from 'react';
 import LogoutButton from '../../components/logout-button';
 import { supabase } from '../../supabaseClient';
+import RequestsButton from '../../components/requestsButton';
 
 export default function SettingsPage() {
     const [userData, setUserData] = useState(null);
@@ -45,6 +46,9 @@ export default function SettingsPage() {
                     ) : (
                         <p>Laster brukerinfo...</p>
                     )}
+                    <div>
+                    <RequestsButton />
+                    </div>
                     <LogoutButton />
                 </div>
             </IonContent>
