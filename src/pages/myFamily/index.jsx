@@ -5,8 +5,11 @@ import {
 import React from 'react';
 import MyChildrenList from '../../components/childList';
 import MyFamilyList from '../../components/familyList';
+import { useAuth } from '../../contexts/auth';
 
 export default function MyFamilyPage() {
+
+  const { user } = useAuth();
   
   return (
     <IonPage className="page">
@@ -15,7 +18,7 @@ export default function MyFamilyPage() {
           <MyChildrenList />
         </div>
         <div>
-          <MyFamilyList />
+          <MyFamilyList key={user?.id} />
         </div>
       </IonContent>
     </IonPage>

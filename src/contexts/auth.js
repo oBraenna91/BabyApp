@@ -22,27 +22,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    // Hent nåværende session ved oppstart
-    // supabase.auth.getSession().then(({ data: { session } }) => {
-    //   setUser(session?.user ?? null);
-    //   setLoading(false);
-    // });
     const getSessionAndProfile = async () => {
-      // Hent nåværende session ved oppstart
       const { data: { session } } = await supabase.auth.getSession();
       const currentUser = session?.user ?? null;
       setUser(currentUser);
-
       if (currentUser) {
-        // Hent profil fra din egen "users"-tabell
-        const { data, error } = await supabase
-          .from('users')
-          .select('*')
-          .eq('id', currentUser.id)
-          .maybeSingle();
-        if (!error && data) {
-          setProfile(data);
-        }
+        await fetchProfile(currentUser);
       }
       setLoading(false);
     };
@@ -56,6 +41,13 @@ export const AuthProvider = ({ children }) => {
 
     return () => listener.subscription.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetchProfile(user);
+    }
+    //eslint-disable-next-line
+  }, [user?.id]);
 
   return (
     <AuthContext.Provider value={{ user, profile, loading, fetchProfile }}>

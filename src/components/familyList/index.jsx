@@ -80,11 +80,12 @@ export default function MyFamilyList() {
       }
     };
 
-useIonViewDidEnter(() => {
-  if(user){
-    fetchFamilies();
-  }
-})
+    useIonViewDidEnter(() => {
+      if(user){
+        fetchFamilies();
+        console.log(profile);
+      }
+    })
 
   // Callback for når en familie opprettes
   const handleFamilyCreated = (newFamily) => {

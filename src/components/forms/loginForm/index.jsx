@@ -25,7 +25,7 @@ export default function LoginForm() {
       setLoading(false);
       return;
     }
-    router.push('/app', 'forward');
+    router.push('/', 'forward');
   }
 
   
