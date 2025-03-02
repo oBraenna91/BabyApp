@@ -22,6 +22,7 @@ const ChildInfoPage = () => {
   const [error, setError] = useState(null);
   const [modalType, setModalType] = useState(null);
   const [milestones, setMilestones] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (!childId) return;
@@ -73,8 +74,14 @@ const ChildInfoPage = () => {
     fetchChildMilestones();
   }, [childId]);
 
-  const handleOpenModal = (type) => setModalType(type);
-  const handleCloseModal = () => setModalType(null);
+  const handleOpenModal = (type) => {
+    setModalType(type);
+    setShowModal(true);
+  }
+  // const handleCloseModal = () => {
+  //   setShowModal(false);
+  //   setModalType(null);
+  // }
 
   const handleEventCreated = (newEvent) => {
     setEvents((prevEvents) => [...prevEvents, newEvent]);
@@ -137,22 +144,26 @@ const ChildInfoPage = () => {
           Create New Milestone
         </IonButton>
         <BottomSheetModal
-  isOpen={modalType !== null}
-  onClose={handleCloseModal}
-  onBackdropClick={handleCloseModal}
+  isOpen={showModal}
+  // onClose={handleCloseModal}
+  // onBackdropClick={handleCloseModal}
+  onClose={() => setShowModal(false)}
+  onBackdropClick={() => setShowModal(false)}
 >
   {modalType === "event" && (
     <CreateEventForm 
       childId={childId} 
       onEventCreated={handleEventCreated}
-      onClose={handleCloseModal} 
+      //onClose={handleCloseModal} 
+      onClose={() => setShowModal(false)}
     />
   )}
   {modalType === "milestone" && (
     <CreateMilestoneForm 
       childId={childId} 
       onMilestoneCreated={handleMilestoneCreated}
-      onClose={handleCloseModal} 
+      //onClose={handleCloseModal} 
+      onClose={() => setShowModal(false)}
     />
   )}
 </BottomSheetModal>

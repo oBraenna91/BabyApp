@@ -2,6 +2,7 @@ import React from 'react';
 import { supabase } from '../../supabaseClient';
 import { useIonRouter } from '@ionic/react';
 import { IonButton } from '@ionic/react';
+import styles from './styles.module.scss';
 
 export default function LogoutButton() {
     const router = useIonRouter();
@@ -16,5 +17,5 @@ export default function LogoutButton() {
     }
   };
 
-  return <IonButton onClick={handleLogout}>Log out</IonButton>
+  return <IonButton className={styles.button} onClick={handleLogout}>Log out</IonButton>
 }

@@ -131,11 +131,9 @@ import ResetPasswordPage from './pages/resetPassword';
 import SignUpPage from './pages/signUp';
 import Tabs from './components/tabsNavigation';
 import DetailsOnlyPage from './pages/detailsOnly';
-import ChildInfoPage from './pages/childDetails';
 import SetupUserPage from './pages/setupUser';
 import { AuthProvider } from './contexts/auth';
 import ProtectedRoute from './privateRoute/privateRoute';
-import FamilyDetails from './pages/familyDetails';
 import { RequestCountProvider } from './contexts/RequestCount';
 import IndexRedirect from './pages/indexRedirect';
 
@@ -156,8 +154,8 @@ function App() {
               <Route path="/child-info/:childId" component={ChildInfoPage} /> */}
               <ProtectedRoute path="/setup-user" component={SetupUserPage} />
               <ProtectedRoute path="/app" component={Tabs} />
-              <ProtectedRoute path="/child-info/:childId" component={ChildInfoPage} />
-              <ProtectedRoute path="/family/:familyId" component={FamilyDetails} />
+              {/* <ProtectedRoute path="/child-info/:childId" component={ChildInfoPage} exact/> */}
+              {/* <ProtectedRoute path="/family/:familyId" component={FamilyDetails} exact/> */}
             </IonRouterOutlet>
           </IonReactRouter>
         </RequestCountProvider>

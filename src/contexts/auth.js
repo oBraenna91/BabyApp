@@ -34,7 +34,6 @@ export const AuthProvider = ({ children }) => {
 
     getSessionAndProfile();
 
-    // Lytt til endringer i auth-status
     const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
     });

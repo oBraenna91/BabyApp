@@ -1,0 +1,73 @@
+@import '../../styles/variables.scss';
+
+.familyCard {
+    margin: 18px 0; 
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 80px !important;
+    background: $secondary;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 15px;
+    padding-right: 25px;
+}
+
+.notificationItem {
+    margin: 18px 0; 
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 80px !important;
+    --background: #{$secondary} !important;
+    background: var(--background) !important;
+  }
+  
+   .notificationContent {
+     height:80px;
+     display: flex;
+     align-items: center;
+     --background: #{$secondary} !important;
+     background: var(--background) !important;
+   }
+  
+  .notificationText {
+    height: 80px !important;
+    display: flex;
+    align-items: center;
+    background-color: $secondary;
+  }
+
+  .name, .familyName {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+    margin-left: -20px;
+  }
+
+  .familyName {
+    margin-left: 0;
+  }
+
+  .imageContainer {
+    width:30%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.image {
+    width: 50%;
+}
+  
+.arrow {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    border: solid #000;
+    border-width: 0 3px 3px 0;
+    transform: rotate(-45deg);
+    margin-left: 8px;
+  }

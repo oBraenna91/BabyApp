@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import LogoutButton from '../../components/logout-button';
 import { supabase } from '../../supabaseClient';
 import RequestsButton from '../../components/requestsButton';
+import styles from './styles.module.scss';
 
 export default function SettingsPage() {
     const [userData, setUserData] = useState(null);
@@ -31,14 +32,14 @@ export default function SettingsPage() {
     }, []);
 
     return(
-        <IonPage>
+        <IonPage className="page-padding">
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>SETTINGS</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonContent>
-                <div className="">
+                <div className={styles.container}>
                     {userData ? (
                         <>
                             Name:<h2>{userData.first_name} {userData.last_name}</h2>
@@ -46,9 +47,7 @@ export default function SettingsPage() {
                     ) : (
                         <p>Laster brukerinfo...</p>
                     )}
-                    <div>
                     <RequestsButton />
-                    </div>
                     <LogoutButton />
                 </div>
             </IonContent>

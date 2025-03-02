@@ -1,22 +1,33 @@
-import React, { useState } from 'react';
-import { IonButton, IonList, IonItem, IonLabel } from '@ionic/react';
+import React, { useState, useEffect } from 'react';
+import { IonButton, IonList, IonItem, IonLabel, IonItemSliding, IonItemOption, IonItemOptions } from '@ionic/react';
 import BottomSheetModal from '../bottomSheetModal';
 import CreateFamilyForm from '../forms/createFamilyForm';
 import SearchFamilyForm from '../forms/searchFamilyForm';
 import { useIonRouter } from '@ionic/react';
 import { supabase } from '../../supabaseClient';
 import { useAuth } from '../../contexts/auth';
-import { useIonViewDidEnter } from '@ionic/react';
+//import { useIonViewDidEnter } from '@ionic/react';
+import EditFamilyMemberForm from '../forms/editFamilyMemberForm';
+import styles from './styles.module.scss';
+import FallBackImage from '../../visuals/images/profile (1).png';
 
 export default function MyFamilyList() {
-  const [showFamilyModal, setShowFamilyModal] = useState(false);
-  const [modalContent, setModalContent] = useState(null); // 'create' eller 'search'
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
+  const [memberToEdit, setMemberToEdit] = useState(null);
   const [primaryFamily, setPrimaryFamily] = useState(null);
   const [connectedFamilies, setConnectedFamilies] = useState([]);
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useIonRouter();
   const { user, profile } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      fetchFamilies();
+    }
+    //eslint-disable-next-line
+  }, [user]);
 
     const fetchFamilies = async () => {
       setLoading(true);
@@ -25,7 +36,6 @@ export default function MyFamilyList() {
         return;
       }
       
-      // Hent alle medlemskap for brukeren
       const { data: memberships, error: membershipsError } = await supabase
         .from('family_members')
         .select('family_id, role')
@@ -36,7 +46,6 @@ export default function MyFamilyList() {
         return;
       }
       
-      // Hent primærfamilie basert på profil
       const primaryFamilyId = profile?.primary_family_id;
       if (primaryFamilyId) {
         const { data: familyData, error: familyError } = await supabase
@@ -52,7 +61,6 @@ export default function MyFamilyList() {
         }
       }
       
-      // Finn tilknyttede familier der bruker er medlem, men som ikke er primær
       const connected = memberships.filter(m => m.family_id !== primaryFamilyId);
       if (connected.length > 0) {
         const { data: familiesData, error: connectedError } = await supabase
@@ -80,41 +88,43 @@ export default function MyFamilyList() {
       }
     };
 
-    useIonViewDidEnter(() => {
-      if(user){
-        fetchFamilies();
-        console.log(profile);
-      }
-    })
+    // useIonViewDidEnter(() => {
+    //   if(user){
+    //     fetchFamilies();
+    //   }
+    // })
 
-  // Callback for når en familie opprettes
   const handleFamilyCreated = (newFamily) => {
     setPrimaryFamily(newFamily);
-    setShowFamilyModal(false);
-    // Eventuelt oppdater også brukerprofilen med primary_family_id her.
+    setShowModal(false);
   };
 
-  // Callback for når en family request er sendt/valgt fra søk
   const handleFamilyRequestSent = (selectedFamily) => {
-    setShowFamilyModal(false);
-    // Du kan vise en bekreftelse eller navigere til family details.
+    setShowModal(false);
   };
 
-  // Åpne modalen med "Create Family"
   const openCreateFamily = () => {
     setModalContent('create');
-    setShowFamilyModal(true);
+    setShowModal(true);
   };
 
-  // Åpne modalen med "Search Family"
   const openSearchFamily = () => {
     setModalContent('search');
-    setShowFamilyModal(true);
+    setShowModal(true);
   };
 
-  // Naviger til family-detaljer-siden ved klikk
   const handleFamilyClick = (familyId) => {
-    router.push(`/family/${familyId}`, 'forward');
+    router.push(`/app/myfamily/family/${familyId}`, 'forward');
+  };
+
+  const handleEdit = (member) => {
+    setMemberToEdit(member);
+    setModalContent('edit');
+    setShowModal(true);
+  };
+
+  const handleDelete = async (member) => {
+    setMembers(prev => prev.filter(m => m.users.id !== member.users.id));
   };
 
   if (loading) {
@@ -127,19 +137,44 @@ export default function MyFamilyList() {
       {primaryFamily ? (
         <>
           <div onClick={() => handleFamilyClick(primaryFamily.id)}>
-            <h3>{primaryFamily.family_name}</h3>
+            <div className={styles.familyCard}>
+              <div className={styles.familyName}>{primaryFamily.family_name}</div>
+              <div className={styles.arrow}></div>
+            </div>
           </div>
           <h4>Family Members:</h4>
           {members && members.length > 0 ? (
-            <IonList>
-              {members.map((member) => (
-                <IonItem key={member.users.id}>
-                  <IonLabel>
-                    {member.users.first_name} {member.users.last_name}
-                  </IonLabel>
-                </IonItem>
+            <div>
+              {members.map(member => (
+                <IonItemSliding key={member.users.id} 
+                className={styles.notificationItem}
+                >
+                  <IonItem lines="none" 
+                  className={styles.notificationContent}
+                  >
+                    <IonLabel>
+                      <div 
+                        className={styles.notificationText}
+                      >
+                        <div className={styles.imageContainer}><img src={FallBackImage} className={styles.image} alt="Profile" /></div>
+                        <div className={styles.name}>
+                          {member.users.first_name} {member.users.last_name}
+                        </div>
+                      </div>
+                    </IonLabel>
+                  </IonItem>
+                  <IonItemOptions className={styles.options} side="end">
+                    <IonItemOption color="primary" onClick={() => handleEdit(member)}>
+                      Edit
+                    </IonItemOption>
+                    <IonItemOption color="danger" onClick={() => handleDelete(member)}>
+                      Delete
+                    </IonItemOption>
+                  </IonItemOptions>
+                </IonItemSliding>
               ))}
-            </IonList>
+            </div>
+            
           ) : (
             <p>No family members found.</p>
           )}
@@ -156,25 +191,49 @@ export default function MyFamilyList() {
       {connectedFamilies && connectedFamilies.length > 0 ? (
         <IonList>
           {connectedFamilies.map((fam) => (
-            <IonItem key={fam.id} button onClick={() => handleFamilyClick(fam.id)}>
-              <IonLabel>{fam.family_name}</IonLabel>
-            </IonItem>
+            <div className={styles.familyCard} onClick={() => handleFamilyClick(fam.id)}>
+              <div className={styles.familyName}>{fam.family_name}</div>
+              <div className={styles.arrow}></div>
+            </div>
+            // <IonItem key={fam.id} button onClick={() => handleFamilyClick(fam.id)}>
+            //   <IonLabel>{fam.family_name}</IonLabel>
+            // </IonItem>
           ))}
         </IonList>
       ) : (
         <p>No connected families.</p>
       )}
-
       <BottomSheetModal
-        isOpen={showFamilyModal}
-        onClose={() => setShowFamilyModal(false)}
-        onBackdropClick={() => setShowFamilyModal(false)}
-        title={modalContent === 'create' ? "Create Family" : "Search Family"}
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onBackdropClick={() => setShowModal(false)}
+        title={
+          modalContent === 'create'
+            ? "Create Family"
+            : modalContent === 'search'
+            ? "Search Family"
+            : modalContent === 'edit'
+            ? "Edit Family Member"
+            : ""
+        }
       >
-        {modalContent === 'create' ? (
+        {modalContent === 'create' && (
           <CreateFamilyForm onFamilyCreated={handleFamilyCreated} />
-        ) : (
+        )}
+        {modalContent === 'search' && (
           <SearchFamilyForm onFamilyRequestSent={handleFamilyRequestSent} />
+        )}
+        {modalContent === 'edit' && memberToEdit && (
+          <EditFamilyMemberForm 
+            member={memberToEdit} 
+            onClose={() => setShowModal(false)} 
+            onUpdate={(updatedMember) => {
+              setMembers(prev =>
+                prev.map(m => m.users.id === updatedMember.users.id ? updatedMember : m)
+              );
+              setShowModal(false);
+            }}
+          />
         )}
       </BottomSheetModal>
     </div>

@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 //import MultiStepForm from '../../components/forms/createUserForm';
-import { IonPage, IonContent, IonList, IonItem, IonLabel } from '@ionic/react';
+import { IonPage, IonContent, IonList, IonRefresher, IonRefresherContent } from '@ionic/react';
 import styles from './styles.module.scss';
 import { supabase } from '../../supabaseClient';
 import { useAuth } from '../../contexts/auth';
-import { useIonViewDidEnter } from '@ionic/react';
+//import { useIonViewDidEnter } from '@ionic/react';
+import FallBackImage from '../../visuals/images/profile (1).png';
+import { formatRelativeTime } from '../../components/counter';
 
 const HomePage = () => {
 
   const [feedItems, setFeedItems] = useState([]);
   const [loading, setLoading] = useState([]);
   const { user } = useAuth();
+
+  useEffect(() => {
+      if (user) {
+        fetchFeedItems();
+      }
+      //eslint-disable-next-line
+    }, [user]);
 
   const fetchFeedItems = async () => {
     setLoading(true);
@@ -48,13 +57,23 @@ const HomePage = () => {
     setLoading(false);
   }
 
-  useIonViewDidEnter(() => {
-    if(user) fetchFeedItems();
-  });
+  // useIonViewDidEnter(() => {
+  //   if(user) fetchFeedItems();
+  // });
+
+  const handleRefresh = (event) => {
+    setTimeout(() => {
+      console.log("Data oppdatert!");
+      event.detail.complete();
+    }, 2000);
+  };
 
   return (
-    <IonPage>
+    <IonPage className="page-padding">
       <IonContent style={{ '--padding-top': 'env(safe-area-inset-top)' }}>
+      <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+          <IonRefresherContent />
+        </IonRefresher>
         <div className={styles.container}>
           <h1>Welcome to the app!</h1>
           {loading ? (
@@ -64,13 +83,20 @@ const HomePage = () => {
         ) : (
           <IonList>
             {feedItems.map((item) => (
-              <IonItem key={item.id}>
-                <IonLabel>
-                  <h3>{item.title || item.name || 'Untitled'}</h3>
-                  <p>{item.description || 'No description'}</p>
-                  <small>{new Date(item.created_at).toLocaleString()}</small>
-                </IonLabel>
-              </IonItem>
+              <div className={styles.familyCard} key={item.id}>
+                <div className={styles.imageContainer}>
+                  <img className={styles.image} alt="profile" src={FallBackImage}/>
+                </div>
+                <div className={styles.col2}>
+                  <div className={styles.top}>
+                    <div className={styles.title}>{item.title || item.name || 'Untitled'}</div>
+                    <div className={styles.time}>{formatRelativeTime(item.created_at)}</div>
+                  </div>
+                  <div className={styles.bottom}>
+                    <div>{item.description || 'No description'}</div>
+                  </div>
+                </div>
+              </div>
             ))}
           </IonList>
         )}

@@ -15,6 +15,8 @@ const CreateChildForm = ({ onChildCreated, onClose }) => {
 
     if (!user || !familyId) {
       console.error("Bruker er ikke logget inn eller primary_family_id mangler");
+      alert(`You don't have a primary family - please create a family before creating a child!`)
+      onClose();
       setIsLoading(false);
       return;
     }

@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { IonCard, IonButton, IonSkeletonText , IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/react';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 import styles from './styles.module.scss';
 import CreateChildForm from '../forms/createChildForm';
 import BottomSheetModal from '../bottomSheetModal';
 import { supabase } from '../../supabaseClient';
 import fallBackImage from '../../visuals/images/profile (1).png';
+import { useIonRouter } from '@ionic/react';
 
 const MyChildrenList = () => {
-  const history = useHistory();
+  //const history = useHistory();
   const [showCreateChildModal, setShowCreateChildModal] = useState(false);
   const [childrenList, setChildrenList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useIonRouter();
 
-  const handleCardClick = (childId) => {
-    history.push(`/child-info/${childId}`);
+  const handleChildCardClick = (childId) => {
+    //history.push(`/child-info/${childId}`);
+    router.push(`/app/myfamily/child-info/${childId}`, 'forward')
   };
 
   const handleChildCreated = (newChild) => {
@@ -63,7 +66,6 @@ const MyChildrenList = () => {
       </div>
       <div className={styles.cardContainer}>
       {loading ? (
-          // Vis skeleton loader-kort mens vi laster data
           <div className={styles.skeletonContainer}>
             {[1, 2, 3].map((item) => (
               <IonCard className={styles.card} key={item}>
@@ -79,7 +81,6 @@ const MyChildrenList = () => {
             ))}
           </div>
         ) : childrenList && childrenList.length > 0 ? (
-          // Når data er lastet, vis de faktiske kortene
           childrenList.map((member) => (
             <IonCard className={styles.card} key={member.children.id}>
               <IonCardHeader>
@@ -92,7 +93,7 @@ const MyChildrenList = () => {
                 <IonButton 
                   color="primary" 
                   className={`border-radius-1 ${styles.button}`} 
-                  onClick={() => handleCardClick(member.children.id)}
+                  onClick={() => handleChildCardClick(member.children.id)}
                 >
                   View profile
                 </IonButton>
@@ -100,7 +101,6 @@ const MyChildrenList = () => {
             </IonCard>
           ))
         ) : (
-          // Hvis data er lastet, men listen er tom
           <p>No children found.</p>
         )}
       </div>
